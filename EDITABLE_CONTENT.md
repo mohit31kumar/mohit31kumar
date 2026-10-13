@@ -100,9 +100,14 @@ confirm these.** Repo link base: `https://github.com/mohit31kumar/<repo>`.
 ---
 
 ## 6. ACTIVITY FIELD  [VERIFIED WIDGETS]
-- Isometric contribution GIF: `assets/activity/contrib-3d.gif`
-  → ⚠ currently a **decorative generated field**, NOT your real contribution data.
-  Treat as art. If you want real data, use the live widget shown below it.
+- Contribution-city GIF: `assets/activity/contrib-3d.gif`
+  → currently uses an **illustrative generated field** unless you drop
+  `assets/activity/contributions.json` here with your real data:
+  ```json
+  {"weeks": [[0,1,2,...7 values/row Sun..Sat], ...]}
+  ```
+  When present, one skyline building is drawn per non-zero contribution day
+  and the frame labels it "GITHUB CONTRIBUTIONS • SOURCE: CONTRIBUTIONS.JSON".
 - Live stats widgets (measure real data):
   - `github-readme-stats.vercel.app` — stars/commits/PRs/issues (self-reported by service)
   - `github-readme-stats.vercel.app/api/top-langs` — most-used languages by bytes

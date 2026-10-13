@@ -350,30 +350,266 @@ def cursor_gif():
 
 
 # --------------------------------------------------------------------------
-# 03 — Tech panels
+# 03 — Tech panels (compact technology-logo matrix)
 # --------------------------------------------------------------------------
-def tech_panel(idx, label, accent):
-    w, h = 380, 180
+TECH_PANEL_W, TECH_PANEL_H = 380, 300
+
+# Editable, configurable tech lists. Edit names / icon keys freely — no
+# proficiency, level, or skill claim is encoded anywhere. Icon keys map to the
+# vector-style glyphs drawn below. If a real logo exists at
+# `assets/tech/logos/<slug>.png` (or .webp) it is used instead of the glyph,
+# where slug = name lowercased with non-alphanumerics replaced by "-".
+TECH_MATRIX = [
+    {"num": 1, "label": "LANGUAGES", "accent": PINK, "items": [
+        ("JavaScript", "js"), ("TypeScript", "ts"), ("Python", "py"),
+        ("HTML", "html"), ("CSS", "css"), ("SQL", "sql"),
+    ]},
+    {"num": 2, "label": "FRAMEWORKS", "accent": CYAN, "items": [
+        ("React", "react"), ("Node.js", "node"), ("Express", "express"),
+        ("NestJS", "nestjs"), ("React Native", "reactnative"),
+    ]},
+    {"num": 3, "label": "TOOLS / INFRA", "accent": LIME, "items": [
+        ("Git", "git"), ("GitHub", "github"), ("Docker", "docker"),
+        ("MySQL", "mysql"), ("PostgreSQL", "postgres"), ("Redis", "redis"),
+    ]},
+    {"num": 4, "label": "DOMAINS", "accent": ULTRA, "items": [
+        ("Full-stack", "stack"), ("REST APIs", "rest"), ("Databases", "db"),
+        ("Authentication", "auth"), ("Security", "shield"),
+    ]},
+]
+
+
+def _slug(name: str) -> str:
+    out = "".join(ch if ch.isalnum() else "-" for ch in name.lower())
+    while "--" in out:
+        out = out.replace("--", "-")
+    return out.strip("-")
+
+
+def _load_logo(name: str):
+    """Optional real logo override. Returns an RGBA image or None (graceful)."""
+    base = os.path.join(ASSETS, "tech", "logos", _slug(name))
+    for ext in (".png", ".webp"):
+        p = base + ext
+        if os.path.exists(p):
+            try:
+                return Image.open(p).convert("RGBA")
+            except Exception:
+                return None
+    return None
+
+
+def fit_font(kind: str, text: str, max_w: float, start: int, min_size: int = 9):
+    for s in range(start, min_size - 1, -1):
+        f = font(kind, s)
+        if f.getlength(text) <= max_w:
+            return f
+    return font(kind, min_size)
+
+
+def _rot_ellipse(img, cx, cy, rx, ry, angle, color, width=3):
+    size = int(max(rx, ry)) * 2 + 10
+    layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    ld = ImageDraw.Draw(layer)
+    ld.ellipse([size // 2 - rx, size // 2 - ry, size // 2 + rx, size // 2 + ry],
+               outline=(*color, 255), width=width)
+    layer = layer.rotate(angle, resample=Image.BICUBIC)
+    img.alpha_composite(layer, (int(cx - size / 2), int(cy - size / 2)))
+
+
+def _shield(d, cx, cy, s, color, width=3):
+    pts = [(cx, cy - s), (cx + s, cy - s * 0.45), (cx + s, cy + s * 0.35),
+           (cx, cy + s), (cx - s, cy + s * 0.35), (cx - s, cy - s * 0.45)]
+    d.polygon(pts, outline=(*color, 255), width=width)
+
+
+def _cylinder(d, cx, cy, s, color, width=3):
+    rx, ry = s, s * 0.34
+    d.ellipse([cx - rx, cy - s, cx + rx, cy - s + 2 * ry], outline=(*color, 255), width=width)
+    d.line([(cx - rx, cy - s + ry), (cx - rx, cy + s - ry)], fill=(*color, 255), width=width)
+    d.line([(cx + rx, cy - s + ry), (cx + rx, cy + s - ry)], fill=(*color, 255), width=width)
+    d.arc([cx - rx, cy + s - 2 * ry, cx + rx, cy + s], 0, 180, fill=(*color, 255), width=width)
+
+
+def _hexagon(d, cx, cy, s, color, width=3):
+    pts = [(cx + s * math.cos(math.radians(-90 + 60 * k)),
+            cy + s * math.sin(math.radians(-90 + 60 * k))) for k in range(6)]
+    d.polygon(pts, outline=(*color, 255), width=width)
+
+
+def _ctext(d, cx, cy, text, f, color):
+    d.text((cx, cy), text, font=f, fill=(*color, 255), anchor="mm")
+
+
+def draw_tech_icon(img, d, key, cx, cy, s, color):
+    """Clean vector-style glyphs. Unknown keys fall back to a monogram."""
+    w = 3
+    if key in ("js", "ts"):
+        d.rounded_rectangle([cx - s, cy - s, cx + s, cy + s], radius=5,
+                            outline=(*color, 255), width=w)
+        _ctext(d, cx, cy, key.upper(), font("mono", int(s * 0.9)), color)
+    elif key == "py":
+        d.rounded_rectangle([cx - s, cy - s, cx + s * 0.05, cy + s * 0.05], radius=6,
+                            outline=(*color, 255), width=w)
+        d.rounded_rectangle([cx - s * 0.05, cy - s * 0.05, cx + s, cy + s], radius=6,
+                            outline=(*color, 255), width=w)
+        d.ellipse([cx - s * 0.55, cy - s * 0.55, cx - s * 0.3, cy - s * 0.3], fill=(*color, 255))
+        d.ellipse([cx + s * 0.3, cy + s * 0.3, cx + s * 0.55, cy + s * 0.55], fill=(*color, 255))
+    elif key == "html":
+        _shield(d, cx, cy, s, color, w)
+        _ctext(d, cx, cy + s * 0.05, "5", font("mono", int(s * 0.95)), color)
+    elif key == "css":
+        _shield(d, cx, cy, s, color, w)
+        _ctext(d, cx, cy + s * 0.05, "3", font("mono", int(s * 0.95)), color)
+    elif key == "sql":
+        _cylinder(d, cx, cy, s, color, w)
+        _ctext(d, cx, cy + s * 0.05, "SQL", font("mono", int(s * 0.55)), color)
+    elif key == "react":
+        _rot_ellipse(img, cx, cy, int(s), int(s * 0.36), 0, color, w)
+        _rot_ellipse(img, cx, cy, int(s), int(s * 0.36), 60, color, w)
+        _rot_ellipse(img, cx, cy, int(s), int(s * 0.36), 120, color, w)
+        d.ellipse([cx - 3, cy - 3, cx + 3, cy + 3], fill=(*color, 255))
+    elif key == "node":
+        _hexagon(d, cx, cy, s, color, w)
+        _ctext(d, cx, cy + s * 0.02, "JS", font("mono", int(s * 0.6)), color)
+    elif key == "express":
+        _ctext(d, cx, cy, "ex", font("mono", int(s * 1.2)), color)
+    elif key == "nestjs":
+        _hexagon(d, cx, cy, s, color, w)
+        _ctext(d, cx, cy, "N", font("mono", int(s * 0.9)), color)
+    elif key == "reactnative":
+        _rot_ellipse(img, cx, cy, int(s), int(s * 0.34), 0, color, w)
+        _rot_ellipse(img, cx, cy, int(s), int(s * 0.34), 60, color, w)
+        _rot_ellipse(img, cx, cy, int(s), int(s * 0.34), 120, color, w)
+        d.rounded_rectangle([cx - s * 0.22, cy - s * 0.5, cx + s * 0.22, cy + s * 0.5],
+                            radius=3, outline=(*GHOST, 255), width=w)
+    elif key == "git":
+        top = (cx - s * 0.45, cy - s * 0.55)
+        bot = (cx - s * 0.45, cy + s * 0.55)
+        br = (cx + s * 0.5, cy - s * 0.02)
+        d.line([top, bot], fill=(*color, 255), width=w)
+        d.line([(cx - s * 0.45, cy), (br[0], br[1] + s * 0.1)], fill=(*color, 255), width=w)
+        for (x, y) in (top, bot, br):
+            d.ellipse([x - 4, y - 4, x + 4, y + 4], outline=(*color, 255), width=w)
+    elif key == "github":
+        d.ellipse([cx - s * 0.72, cy - s * 0.6, cx + s * 0.72, cy + s * 0.7],
+                  outline=(*color, 255), width=w)
+        d.polygon([(cx - s * 0.66, cy - s * 0.35), (cx - s * 0.34, cy - s * 0.92),
+                   (cx - s * 0.08, cy - s * 0.54)], fill=(*color, 255))
+        d.polygon([(cx + s * 0.66, cy - s * 0.35), (cx + s * 0.34, cy - s * 0.92),
+                   (cx + s * 0.08, cy - s * 0.54)], fill=(*color, 255))
+        d.ellipse([cx - s * 0.36, cy - s * 0.12, cx - s * 0.14, cy + s * 0.12], fill=(*color, 255))
+        d.ellipse([cx + s * 0.14, cy - s * 0.12, cx + s * 0.36, cy + s * 0.12], fill=(*color, 255))
+    elif key == "docker":
+        bw, bh = s * 0.34, s * 0.26
+        for i in range(3):
+            x = cx - s * 0.5 + i * bw * 1.06
+            d.rectangle([x, cy - s * 0.08, x + bw, cy - s * 0.08 + bh],
+                        outline=(*color, 255), width=w)
+        d.arc([cx - s, cy - s * 0.06, cx + s * 1.05, cy + s * 0.95], 180, 360,
+              fill=(*color, 255), width=w)
+        d.line([(cx - s, cy + s * 0.44), (cx - s * 0.2, cy + s * 0.44)], fill=(*color, 255), width=w)
+        d.polygon([(cx + s * 0.95, cy - s * 0.06), (cx + s * 1.2, cy - s * 0.42),
+                   (cx + s * 1.2, cy + s * 0.12)], fill=(*color, 255))
+    elif key in ("mysql", "postgres"):
+        _cylinder(d, cx, cy, s, color, w)
+        _ctext(d, cx, cy + s * 0.05, "MY" if key == "mysql" else "PG",
+               font("mono", int(s * 0.5)), color)
+    elif key == "redis":
+        for yy in (-s * 0.5, 0.0, s * 0.5):
+            d.ellipse([cx - s * 0.8, cy + yy - s * 0.2, cx + s * 0.8, cy + yy + s * 0.2],
+                      outline=(*color, 255), width=w)
+    elif key == "stack":
+        for yy in (-s * 0.45, 0.0, s * 0.45):
+            d.polygon([(cx, cy + yy - s * 0.26), (cx + s * 0.85, cy + yy),
+                       (cx, cy + yy + s * 0.26), (cx - s * 0.85, cy + yy)],
+                      outline=(*color, 255), width=w)
+    elif key == "rest":
+        f = font("mono", int(s * 1.3))
+        d.text((cx - s * 0.7, cy), "{", font=f, fill=(*color, 255), anchor="rm")
+        d.text((cx + s * 0.7, cy), "}", font=f, fill=(*color, 255), anchor="lm")
+        d.line([(cx - s * 0.28, cy), (cx + s * 0.28, cy)], fill=(*color, 255), width=w)
+        d.polygon([(cx + s * 0.1, cy - s * 0.14), (cx + s * 0.34, cy),
+                   (cx + s * 0.1, cy + s * 0.14)], fill=(*color, 255))
+    elif key == "db":
+        _cylinder(d, cx, cy, s, color, w)
+    elif key == "auth":
+        d.rounded_rectangle([cx - s * 0.68, cy - s * 0.12, cx + s * 0.68, cy + s * 0.8],
+                            radius=4, outline=(*color, 255), width=w)
+        d.arc([cx - s * 0.44, cy - s * 0.88, cx + s * 0.44, cy - s * 0.05], 180, 360,
+              fill=(*color, 255), width=w)
+        d.ellipse([cx - 3, cy + s * 0.18, cx + 3, cy + s * 0.18 + 7], fill=(*color, 255))
+    elif key == "shield":
+        _shield(d, cx, cy, s, color, w)
+        d.line([(cx - s * 0.4, cy + s * 0.02), (cx - s * 0.08, cy + s * 0.34)],
+               fill=(*color, 255), width=w)
+        d.line([(cx - s * 0.08, cy + s * 0.34), (cx + s * 0.44, cy - s * 0.34)],
+               fill=(*color, 255), width=w)
+    else:
+        _ctext(d, cx, cy, "".join(ch for ch in key.upper() if ch.isalnum())[:2],
+               font("mono", int(s * 1.0)), color)
+
+
+def tech_panel(panel):
+    num = panel["num"]
+    label = panel["label"]
+    accent = panel["accent"]
+    items = panel["items"]
+    w, h = TECH_PANEL_W, TECH_PANEL_H
     img = Image.new("RGBA", (w, h), (*PANEL, 255))
     d = ImageDraw.Draw(img)
-    paste_rgba(img, grid_overlay((w, h), 30, GRID, 80))
-    # brutalist frame
-    d.rectangle([0, 0, w - 1, h - 1], outline=(*GHOST, 255), width=3)
-    d.rectangle([0, 0, w - 1, 52], fill=(*VOID, 255))
-    d.rectangle([0, 0, w - 1, 52], outline=(*accent, 255), width=3)
-    # corner brackets
-    for (cx, cy, sx, sy) in [(0, 0, 1, 1), (w - 1, 0, -1, 1), (0, h - 1, 1, -1), (w - 1, h - 1, -1, -1)]:
-        d.line([(cx, cy), (cx + sx * 26, cy)], fill=(*accent, 255), width=4)
-        d.line([(cx, cy), (cx, cy + sy * 26)], fill=(*accent, 255), width=4)
-    fnum = font("mono", 16)
-    flab = font("display", 34)
-    d.text((16, 16), f"0{idx}", font=fnum, fill=accent)
-    lw, _ = text_size(d, label, flab)
-    d.text(((w - lw) / 2, 92), label, font=flab, fill=GHOST)
-    # accent underline
-    d.rectangle([(w - lw) / 2, 136, (w + lw) / 2, 141], fill=(*accent, 255))
-    img.save(ensure("tech", f"tech-panel-0{idx}.png"))
-    return f"tech-panel-0{idx}"
+    paste_rgba(img, grid_overlay((w, h), 30, GRID, 60))
+
+    # brutalist outer frame + corner brackets
+    d.rectangle([1, 1, w - 2, h - 2], outline=(*GHOST, 255), width=2)
+    for (bx, by, sx, sy) in [(3, 3, 1, 1), (w - 4, 3, -1, 1), (3, h - 4, 1, -1), (w - 4, h - 4, -1, -1)]:
+        d.line([(bx, by), (bx + sx * 20, by)], fill=(*accent, 255), width=4)
+        d.line([(bx, by), (bx, by + sy * 20)], fill=(*accent, 255), width=4)
+
+    # header
+    hh = 54
+    d.rectangle([0, 0, w, hh], fill=(*VOID, 255))
+    d.rectangle([0, 0, 54, hh], fill=(*accent, 255))
+    _ctext(d, 27, hh / 2, f"{num:02d}", font("display", 34), VOID)
+    d.text((70, hh / 2), label, font=font("display_xb", 26), fill=GHOST, anchor="lm")
+    d.text((w - 16, hh / 2), f"{len(items):02d} NODE", font=font("mono", 13),
+           fill=(*accent, 255), anchor="rm")
+    d.line([(0, hh), (w, hh)], fill=(*accent, 255), width=2)
+
+    # item matrix (3 columns x N rows)
+    cols = 3
+    x0 = 18
+    top = hh + 16
+    bottom = h - 16
+    cw = (w - 2 * x0) / cols
+    rows = max(1, math.ceil(len(items) / cols))
+    rh = (bottom - top) / rows
+    for i, (name, key) in enumerate(items):
+        r, c = divmod(i, cols)
+        ccx = x0 + c * cw + cw / 2
+        base = top + r * rh
+        icy = base + 38
+        logo = _load_logo(name)
+        if logo is not None:
+            lw0, lh0 = logo.size
+            scale = min(46 / lw0, 46 / lh0)
+            nw, nh = max(1, int(lw0 * scale)), max(1, int(lh0 * scale))
+            img.alpha_composite(logo.resize((nw, nh), Image.LANCZOS),
+                                (int(ccx - nw / 2), int(icy - nh / 2)))
+        else:
+            draw_tech_icon(img, d, key, ccx, icy, 22, accent)
+        # index tick (design metadata)
+        d.text((x0 + c * cw + 4, base + 4), f"{i + 1:02d}", font=font("mono", 10),
+               fill=(*accent, 255))
+        # auto-fit label + accent underline
+        lf = fit_font("mono", name, cw - 10, 13, 9)
+        d.text((ccx, base + 76), name, font=lf, fill=GHOST, anchor="mm")
+        lwid = lf.getlength(name)
+        d.line([(ccx - lwid / 2, base + 86), (ccx + lwid / 2, base + 86)],
+               fill=(*accent, 255), width=2)
+
+    img.convert("RGB").save(ensure("tech", f"tech-panel-0{num}.png"), optimize=True)
+    return f"tech-panel-0{num}"
 
 
 # --------------------------------------------------------------------------
@@ -580,75 +816,184 @@ def footer_animated():
 
 
 # --------------------------------------------------------------------------
-# 06 — Activity fallback (isometric contribution field)
+# 06 — Activity field (contribution-city skyline, ported from ignore.py)
 # --------------------------------------------------------------------------
-def contrib_static():
-    w, h = 800, 400
-    img = Image.new("RGBA", (w, h), (*VOID, 255))
-    d = ImageDraw.Draw(img)
-    paste_rgba(img, grid_overlay((w, h), 40, GRID, 60))
-    cols, rows = 30, 7
-    cw, ch = 20, 20
-    ox, oy = 120, 150
+def _load_contribution_levels(cols=30, rows=7):
+    """Load optional real contribution levels from assets/activity/contributions.json.
+
+    Expected format: {"weeks": [[0, 1, 2, ...], ...]} where each week has
+    seven values from 0 to 4 (Sunday through Saturday). This file must contain
+    data you obtained from your own GitHub account. If absent, use a fixed,
+    clearly labelled illustrative pattern instead.
+    """
+    import json
+    path = os.path.join(ASSETS, "activity", "contributions.json")
+    if os.path.isfile(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                payload = json.load(f)
+            weeks = payload.get("weeks", [])
+            grid = [[0 for _ in range(cols)] for _ in range(rows)]
+            for c, week in enumerate(weeks[-cols:]):
+                for r, value in enumerate(week[:rows]):
+                    grid[r][cols - min(cols, len(weeks)) + c] = max(0, min(4, int(value)))
+            return grid, True
+        except (OSError, ValueError, TypeError, AttributeError):
+            pass
     rng = random.Random(42)
-    for r in range(rows):
-        for c in range(cols):
-            level = rng.choice([0, 0, 1, 1, 2, 3])
-            if level == 0:
+    return [[rng.choice([0, 0, 0, 1, 1, 2, 3, 4]) for _ in range(cols)] for _ in range(rows)], False
+
+
+def _draw_activity_field(img, levels, progress=1.0, is_real=False):
+    """Render a contribution-city skyline inspired by an isometric cyberpunk city."""
+    w, h = img.size
+    d = ImageDraw.Draw(img)
+    rng = random.Random(431)
+
+    # Background grid and distant stars.
+    paste_rgba(img, grid_overlay((w, h), 40, GRID, 72))
+    d = ImageDraw.Draw(img)
+    for _ in range(115):
+        sx, sy = rng.randint(520, w - 28), rng.randint(48, 155)
+        shade = rng.choice([(45, 65, 95, 180), (95, 115, 150, 180), (28, 45, 70, 170)])
+        d.point((sx, sy), fill=shade)
+        if rng.random() < .12:
+            d.point((sx + 1, sy), fill=shade)
+
+    # Header / terminal metadata.
+    mono_b = font("mono", 22)
+    mono = font("mono_reg", 14)
+    small = font("mono_reg", 11)
+    d.text((24, 18), "~/contribution-city", font=mono_b, fill=GHOST)
+    d.text((w - 72, 27), "// 03", font=mono, fill=(115, 125, 145))
+    d.line((24, 49, w - 24, 49), fill=(*CYAN, 200), width=1)
+    d.text((24, 66), "$ render-city --last 365d  # one building per day", font=mono, fill=(135, 143, 163))
+    d.text((24, 66), "$", font=mono, fill=LIME)
+
+    # Moon / status orb.
+    moon_x, moon_y = w - 58, 103
+    d.ellipse((moon_x - 19, moon_y - 19, moon_x + 19, moon_y + 19), fill=(16, 19, 31))
+    d.ellipse((moon_x - 10, moon_y - 10, moon_x + 10, moon_y + 10), fill=GHOST)
+    d.ellipse((moon_x - 3, moon_y - 13, moon_x + 13, moon_y + 3), fill=VOID)
+
+    # A long, low isometric city platform.
+    base_y = 285
+    left = (120, 228)
+    front = (545, 344)
+    right = (884, 282)
+    back = (465, 218)
+    d.polygon([left, front, right, back], fill=(19, 25, 39))
+    d.line([left, front, right], fill=(48, 61, 82), width=2)
+    # Platform grid follows the isometric plane.
+    for i in range(1, 22):
+        t = i / 22
+        x1 = left[0] + (back[0] - left[0]) * t
+        y1 = left[1] + (back[1] - left[1]) * t
+        x2 = front[0] + (right[0] - front[0]) * t
+        y2 = front[1] + (right[1] - front[1]) * t
+        d.line((x1, y1, x2, y2), fill=(25, 34, 49), width=1)
+    for i in range(1, 10):
+        t = i / 10
+        x1 = left[0] + (front[0] - left[0]) * t
+        y1 = left[1] + (front[1] - left[1]) * t
+        x2 = back[0] + (right[0] - back[0]) * t
+        y2 = back[1] + (right[1] - back[1]) * t
+        d.line((x1, y1, x2, y2), fill=(25, 34, 49), width=1)
+
+    # Build a skyline across the isometric plane. Contribution levels influence height.
+    # If no real contribution JSON is supplied, the graphic remains illustrative.
+    cols = len(levels[0]) if levels else 30
+    rows = len(levels) if levels else 7
+    buildings = []
+    for c in range(cols):
+        for r in range(rows):
+            value = levels[r][c]
+            # Skip many low-level cells to form a varied, city-like silhouette.
+            if value <= 0 or rng.random() < 0.18:
                 continue
-            iso_x = ox + (c - r) * (cw * 0.9) + 300
-            iso_y = oy + (c + r) * (ch * 0.5)
-            bh = level * 16
-            col = [LIME, CYAN, PINK, ULTRA][min(level, 3) % 4]
-            top = [(iso_x, iso_y), (iso_x + cw, iso_y - ch * 0.5), (iso_x + 2 * cw, iso_y), (iso_x + cw, iso_y + ch * 0.5)]
-            # left face
-            d.polygon([(iso_x, iso_y), (iso_x + cw, iso_y + ch * 0.5), (iso_x + cw, iso_y + ch * 0.5 - bh), (iso_x, iso_y - bh)], fill=tuple(int(v * 0.6) for v in col))
-            # right face
-            d.polygon([(iso_x + cw, iso_y + ch * 0.5), (iso_x + 2 * cw, iso_y), (iso_x + 2 * cw, iso_y - bh), (iso_x + cw, iso_y + ch * 0.5 - bh)], fill=tuple(int(v * 0.4) for v in col))
-            # top
-            d.polygon([(t[0], t[1] - bh) for t in top], fill=col)
-    d.text((28, 26), "// CONTRIBUTION FIELD // ISOMETRIC", font=font("mono", 18), fill=CYAN)
-    paste_rgba(img, scanlines((w, h), 4, 40))
-    img.convert("RGB").save(ensure("activity", "contrib-3d-static.png"))
-    return "contrib-3d-static"
+            # Screen projection: x advances right; row offsets create depth.
+            x = 125 + c * 18.5 + r * 7
+            y = 260 + c * 1.55 - r * 7.4
+            bw = rng.choice([13, 15, 17, 19])
+            depth = bw * 0.52
+            raw_height = 15 + value * 10 + rng.randint(0, 38)
+            bh = max(3, int(raw_height * min(1.0, max(0.0, progress * 1.25 - c / max(1, cols) * .25))))
+            if bh <= 2:
+                continue
+            buildings.append((y, x, bw, depth, bh, value, rng.randint(0, 9999)))
+
+    # Draw far buildings first for convincing overlap.
+    for y, x, bw, depth, bh, value, seed in sorted(buildings):
+        if x > 900 or x < 35:
+            continue
+        top_y = y - bh
+        top = [(x, top_y), (x + depth, top_y - depth * .55),
+               (x + bw + depth, top_y - depth * .55), (x + bw, top_y)]
+        front_face = [(x, top_y), (x + bw, top_y), (x + bw, y), (x, y)]
+        side_face = [(x + bw, top_y), (x + bw + depth, top_y - depth * .55),
+                     (x + bw + depth, y - depth * .55), (x + bw, y)]
+        front_col = (19, 43 + value * 8, 68 + value * 10)
+        side_col = (12, 24 + value * 5, 45 + value * 7)
+        top_col = (22, 111 + value * 17, 164 + value * 18)
+        d.polygon(front_face, fill=front_col, outline=(25, 98, 140))
+        d.polygon(side_face, fill=side_col, outline=(19, 70, 112))
+        d.polygon(top, fill=top_col, outline=(*CYAN, 220))
+        # Small cyan/blue window grid.
+        wrng = random.Random(seed)
+        win_y = top_y + 5
+        while win_y < y - 4:
+            for wx in range(int(x + 3), int(x + bw - 2), 5):
+                if wrng.random() < .72:
+                    wc = wrng.choice([(67, 226, 255), (0, 190, 255), (87, 132, 255), (35, 80, 160)])
+                    d.rectangle((wx, win_y, wx + 2, win_y + 2), fill=wc)
+            win_y += 6
+        # Sparse rooftop antenna / cap on tall towers.
+        if bh > 45 and seed % 4 == 0:
+            d.line((x + bw // 2, top_y, x + bw // 2, top_y - 7), fill=CYAN, width=1)
+
+    # Right-side stats block; never fabricate numeric claims.
+    stat_color = CYAN
+    if is_real:
+        d.text((w - 280, 190), "GITHUB CONTRIBUTIONS", font=small, fill=stat_color)
+        d.text((w - 280, 207), "SOURCE: CONTRIBUTIONS.JSON", font=small, fill=GHOST)
+    else:
+        d.text((w - 280, 190), "CONTRIBUTION CITY", font=small, fill=stat_color)
+        d.text((w - 280, 207), "ILLUSTRATIVE DATA / NOT LIVE", font=small, fill=(145, 150, 168))
+
+    # Legend and lower edge.
+    d.text((24, h - 30), "quiet", font=small, fill=(155, 160, 178))
+    for i, col in enumerate([(23, 36, 57), (22, 66, 120), (25, 102, 185), (20, 163, 226), (0, 229, 255)]):
+        x0 = 70 + i * 12
+        d.rectangle((x0, h - 28, x0 + 9, h - 20), fill=col)
+    d.text((134, h - 30), "skyscraper", font=small, fill=(155, 160, 178))
+    paste_rgba(img, scanlines((w, h), 4, 24))
+    d = ImageDraw.Draw(img)
+    d.line((24, h - 48, w - 24, h - 48), fill=(25, 35, 53), width=1)
+    return img
+
+
+def contrib_static():
+    w, h = 1000, 420
+    levels, is_real = _load_contribution_levels()
+    img = Image.new("RGBA", (w, h), (*VOID, 255))
+    img = _draw_activity_field(img, levels, progress=1.0, is_real=is_real)
+    out = ensure("activity", "contrib-3d-static.png")
+    img.convert("RGB").save(out, optimize=True)
+    return out
 
 
 def contrib_animated():
-    w, h = 800, 400
-    cols, rows = 30, 7
-    cw, ch = 20, 20
-    ox, oy = 120, 150
-    rng = random.Random(42)
-    field = [[rng.choice([0, 0, 1, 1, 2, 3]) for _ in range(cols)] for _ in range(rows)]
+    w, h = 1000, 420
+    levels, is_real = _load_contribution_levels()
     frames = []
     for fi in range(20):
         img = Image.new("RGBA", (w, h), (*VOID, 255))
-        d = ImageDraw.Draw(img)
-        paste_rgba(img, grid_overlay((w, h), 40, GRID, 60))
-        for r in range(rows):
-            for c in range(cols):
-                level = field[r][c]
-                if level == 0:
-                    continue
-                grow = min(1.0, max(0.0, (fi - (c + r) * 0.4) / 8.0))
-                if grow <= 0:
-                    continue
-                iso_x = ox + (c - r) * (cw * 0.9) + 300
-                iso_y = oy + (c + r) * (ch * 0.5)
-                bh = level * 16 * grow
-                col = [LIME, CYAN, PINK, ULTRA][min(level, 3) % 4]
-                top = [(iso_x, iso_y), (iso_x + cw, iso_y - ch * 0.5), (iso_x + 2 * cw, iso_y), (iso_x + cw, iso_y + ch * 0.5)]
-                d.polygon([(iso_x, iso_y), (iso_x + cw, iso_y + ch * 0.5), (iso_x + cw, iso_y + ch * 0.5 - bh), (iso_x, iso_y - bh)], fill=tuple(int(v * 0.6) for v in col))
-                d.polygon([(iso_x + cw, iso_y + ch * 0.5), (iso_x + 2 * cw, iso_y), (iso_x + 2 * cw, iso_y - bh), (iso_x + cw, iso_y + ch * 0.5 - bh)], fill=tuple(int(v * 0.4) for v in col))
-                d.polygon([(t[0], t[1] - bh) for t in top], fill=col)
-        d.text((28, 26), "// CONTRIBUTION FIELD // ISOMETRIC", font=font("mono", 18), fill=CYAN)
-        paste_rgba(img, scanlines((w, h), 4, 40))
-        frames.append(img)
+        frames.append(_draw_activity_field(img, levels, progress=(fi + 1) / 20, is_real=is_real).convert("RGB"))
     for _ in range(6):
-        frames.append(frames[-1])
+        frames.append(frames[-1].copy())
     out = ensure("activity", "contrib-3d.gif")
-    save_gif(out, frames, duration=140, colors=40)
-    return "contrib-3d"
+    save_gif(out, frames, duration=120, colors=48)
+    return out
 
 
 # --------------------------------------------------------------------------
@@ -664,13 +1009,8 @@ def main():
     done.append(terminal_panel_bg())
     done.append(terminal_scanlines())
     done.append(cursor_gif())
-    for i, (label, accent) in enumerate([
-        ("LANGUAGES", PINK),
-        ("FRAMEWORKS", CYAN),
-        ("TOOLS / INFRA", LIME),
-        ("DOMAINS", ULTRA),
-    ], start=1):
-        done.append(tech_panel(i, label, accent))
+    for panel in TECH_MATRIX:
+        done.append(tech_panel(panel))
     for slug, title, lang, accent, motif in PROJECTS:
         done.append(project_thumb(slug, title, lang, accent, motif))
     done.append(hero_static())

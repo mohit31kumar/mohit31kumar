@@ -41,13 +41,13 @@ Fonts: **Noto Sans Display Condensed/ExtraCondensed Black** (display),
 | Terminal panel bg | `assets/terminal/panel-bg.png` | PNG | 900×620 | code | — |
 | Scanlines overlay | `assets/terminal/scanlines.png` | PNG | 900×620 | code | — |
 | Cursor | `assets/terminal/cursor.gif` | GIF | 12×24, 2f | code | — |
-| Tech panel 01 | `assets/tech/tech-panel-01.png` | PNG | 380×180 | code | — |
-| Tech panel 02 | `assets/tech/tech-panel-02.png` | PNG | 380×180 | code | — |
-| Tech panel 03 | `assets/tech/tech-panel-03.png` | PNG | 380×180 | code | — |
-| Tech panel 04 | `assets/tech/tech-panel-04.png` | PNG | 380×180 | code | — |
+| Tech panel 01 | `assets/tech/tech-panel-01.png` | PNG | 380×300 | code | — |
+| Tech panel 02 | `assets/tech/tech-panel-02.png` | PNG | 380×300 | code | — |
+| Tech panel 03 | `assets/tech/tech-panel-03.png` | PNG | 380×300 | code | — |
+| Tech panel 04 | `assets/tech/tech-panel-04.png` | PNG | 380×300 | code | — |
 | Project thumb ×7 | `assets/projects/thumb-<slug>.png` | PNG | 320×180 | code | — |
-| Activity (animated) | `assets/activity/contrib-3d.gif` | GIF | 800×400, 26f | code → replace with AI | `contrib-3d-static.png` |
-| Activity (static) | `assets/activity/contrib-3d-static.png` | PNG | 800×400 | code | — |
+| Activity (animated) | `assets/activity/contrib-3d.gif` | GIF | 1000×420, 26f | code → replace with AI | `contrib-3d-static.png` |
+| Activity (static) | `assets/activity/contrib-3d-static.png` | PNG | 1000×420 | code | — |
 | Footer (animated) | `assets/footer/footer.gif` | GIF | 1280×180, 18f | code → replace with AI | `footer-static.png` |
 | Footer (static) | `assets/footer/footer-static.png` | PNG | 1280×180 | code | — |
 
@@ -62,7 +62,7 @@ Project slugs: `ufosay`, `face-unlock`, `apnadabba`, `db-manager`, `render`,
 | Animated GIF | ≤ 2 MB | hero.gif ≈ 0.6 MB |
 | Static PNG | ≤ 300 KB | project thumb ≈ 0.09 MB |
 
-Total `assets/` payload: well under 3 MB.
+Total `assets/` payload: ≈ 2.9 MB (keep under 3 MB − activity GIF is the largest).
 
 ---
 

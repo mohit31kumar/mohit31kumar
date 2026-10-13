@@ -175,10 +175,10 @@
 <!-- ============================ 06 // ACTIVITY FIELD ============================ -->
 <div align="center">
 
-<img src="assets/activity/contrib-3d.gif" width="90%" alt="Isometric contribution field (decorative)">
+<img src="assets/activity/contrib-3d.gif" width="90%" alt="Contribution city (one building per active day)">
 
 <br>
-<sub><samp>isometric field is decorative &nbsp;//&nbsp; live metrics below</samp></sub>
+<sub><samp>contribution city is illustrative &nbsp;//&nbsp; live metrics below</samp></sub>
 
 <br><br>
 
