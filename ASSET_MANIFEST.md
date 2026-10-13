@@ -36,6 +36,7 @@ Fonts: **Noto Sans Display Condensed/ExtraCondensed Black** (display),
 | Hero (static) | `assets/hero/hero-static.png` | PNG | 1280×400 | code | — |
 | Divider 01 | `assets/separators/divider-01.gif` | GIF | 1280×10, 16f | code | frame 1 |
 | Divider 02 | `assets/separators/divider-02.gif` | GIF | 1280×10, 16f | code | frame 1 |
+| Section headers ×6 | `assets/separators/header-02|03|04|05|06|end.png` | PNG | 1280×72 | code | — |
 | Terminal session | `assets/terminal/terminal.gif` | GIF | 900×620, 18f | code | static frame |
 | Terminal panel bg | `assets/terminal/panel-bg.png` | PNG | 900×620 | code | — |
 | Scanlines overlay | `assets/terminal/scanlines.png` | PNG | 900×620 | code | — |
