@@ -613,8 +613,11 @@ def tech_panel(panel):
 
 
 # --------------------------------------------------------------------------
-# 04 — Project thumbnails
+# 04 — Project thumbnails (canonical 640x360 / 16:9)
 # --------------------------------------------------------------------------
+THUMB_W, THUMB_H = 640, 360
+THUMB_SRC_DIR = os.path.join(ASSETS, "projects", "src")
+
 PROJECTS = [
     ("ufosay", "UFOSAY", "PYTHON", PINK, "saucer"),
     ("face-unlock", "FACE-UNLOCK", "PYTHON", CYAN, "face"),
@@ -626,56 +629,108 @@ PROJECTS = [
 ]
 
 
+def _thumb_source(slug):
+    """Optional real project image at assets/projects/src/<slug>.{png,jpg,jpeg,webp}.
+    If present it is letterboxed into the canonical canvas instead of the
+    generated placeholder, so real screenshots are never overwritten."""
+    for ext in (".png", ".jpg", ".jpeg", ".webp"):
+        p = os.path.join(THUMB_SRC_DIR, slug + ext)
+        if os.path.exists(p):
+            return p
+    return None
+
+
+def contain_fit(img, size, bg=VOID):
+    """Scale to fit inside size preserving aspect ratio, centered on bg (no crop)."""
+    tw, th = size
+    iw, ih = img.size
+    scale = min(tw / iw, th / ih)
+    nw, nh = max(1, round(iw * scale)), max(1, round(ih * scale))
+    out = Image.new("RGBA", (tw, th), (*bg, 255))
+    out.alpha_composite(img.resize((nw, nh), Image.LANCZOS), ((tw - nw) // 2, (th - nh) // 2))
+    return out
+
+
 def project_thumb(slug, title, lang, accent, motif):
-    w, h = 320, 180
+    base_w, base_h = 320, 180
+    w, h = THUMB_W, THUMB_H
+    k = w / base_w
+
+    def S(v):
+        return int(round(v * k))
+
+    src = _thumb_source(slug)
+    if src is not None:
+        # Real image: letterbox into the canonical canvas, keep it uncropped.
+        art = contain_fit(Image.open(src).convert("RGBA"), (w, h))
+        ImageDraw.Draw(art).rectangle([1, 1, w - 2, h - 2], outline=(*accent, 255), width=2)
+        art.convert("RGB").save(ensure("projects", f"thumb-{slug}.png"), optimize=True)
+        return f"thumb-{slug}"
+
     img = Image.new("RGBA", (w, h), (*VOID, 255))
     d = ImageDraw.Draw(img)
-    paste_rgba(img, grid_overlay((w, h), 20, GRID, 90))
+    paste_rgba(img, grid_overlay((w, h), S(20), GRID, 90))
+
+    def pt(*pairs):
+        return [(S(x), S(y)) for x, y in pairs]
+
+    cx, cy = base_w // 2, base_h // 2 - 6
+
+    def rbox(x0, y0, x1, y1):
+        return [S(cx + x0), S(cy + y0), S(cx + x1), S(cy + y1)]
+
+    lw3, lw2 = max(1, S(3)), max(1, S(2))
+
     # diagonal band
-    d.polygon([(0, h), (w, 0), (w, 60), (0, h - 60 + 0)], fill=(*accent, 40))
-    # motif wireframe
-    cx, cy = w // 2, h // 2 - 6
+    d.polygon(pt((0, base_h), (base_w, 0), (base_w, 60), (0, base_h - 60)), fill=(*accent, 40))
+
     if motif == "saucer":
-        d.ellipse([cx - 46, cy - 10, cx + 46, cy + 10], outline=(*accent, 255), width=3)
-        d.ellipse([cx - 20, cy - 30, cx + 20, cy - 4], outline=(*GHOST, 220), width=3)
+        d.ellipse(rbox(-46, -10, 46, 10), outline=(*accent, 255), width=lw3)
+        d.ellipse(rbox(-20, -30, 20, -4), outline=(*GHOST, 220), width=lw3)
     elif motif == "face":
-        d.rectangle([cx - 30, cy - 34, cx + 30, cy + 34], outline=(*accent, 255), width=3)
-        d.line([(cx - 16, cy - 10), (cx - 4, cy - 10)], fill=(*GHOST, 230), width=3)
-        d.line([(cx + 4, cy - 10), (cx + 16, cy - 10)], fill=(*GHOST, 230), width=3)
-        d.line([(cx - 14, cy + 16), (cx + 14, cy + 16)], fill=(*GHOST, 230), width=3)
+        d.rectangle(rbox(-30, -34, 30, 34), outline=(*accent, 255), width=lw3)
+        d.line(pt((cx - 16, cy - 10), (cx - 4, cy - 10)), fill=(*GHOST, 230), width=lw3)
+        d.line(pt((cx + 4, cy - 10), (cx + 16, cy - 10)), fill=(*GHOST, 230), width=lw3)
+        d.line(pt((cx - 14, cy + 16), (cx + 14, cy + 16)), fill=(*GHOST, 230), width=lw3)
     elif motif == "box":
-        d.polygon([(cx, cy - 34), (cx + 34, cy - 16), (cx + 34, cy + 16), (cx, cy + 34), (cx - 34, cy + 16), (cx - 34, cy - 16)], outline=(*accent, 255), width=3)
+        d.polygon(pt((cx, cy - 34), (cx + 34, cy - 16), (cx + 34, cy + 16),
+                     (cx, cy + 34), (cx - 34, cy + 16), (cx - 34, cy - 16)),
+                  outline=(*accent, 255), width=lw3)
     elif motif == "db":
-        d.ellipse([cx - 32, cy - 34, cx + 32, cy - 14], outline=(*accent, 255), width=3)
-        d.line([(cx - 32, cy - 24), (cx - 32, cy + 24)], fill=(*accent, 255), width=3)
-        d.line([(cx + 32, cy - 24), (cx + 32, cy + 24)], fill=(*accent, 255), width=3)
-        d.arc([cx - 32, cy + 8, cx + 32, cy + 40], 0, 180, fill=(*accent, 255), width=3)
+        d.ellipse(rbox(-32, -34, 32, -14), outline=(*accent, 255), width=lw3)
+        d.line(pt((cx - 32, cy - 24), (cx - 32, cy + 24)), fill=(*accent, 255), width=lw3)
+        d.line(pt((cx + 32, cy - 24), (cx + 32, cy + 24)), fill=(*accent, 255), width=lw3)
+        d.arc(rbox(-32, 8, 32, 40), 0, 180, fill=(*accent, 255), width=lw3)
     elif motif == "cube":
-        d.polygon([(cx, cy - 30), (cx + 30, cy - 12), (cx + 30, cy + 14), (cx, cy + 32), (cx - 30, cy + 14), (cx - 30, cy - 12)], outline=(*accent, 255), width=3)
-        d.line([(cx, cy - 30), (cx, cy + 0)], fill=(*GHOST, 200), width=2)
-        d.line([(cx - 30, cy - 12), (cx, cy + 0)], fill=(*GHOST, 200), width=2)
-        d.line([(cx + 30, cy - 12), (cx, cy + 0)], fill=(*GHOST, 200), width=2)
+        d.polygon(pt((cx, cy - 30), (cx + 30, cy - 12), (cx + 30, cy + 14),
+                     (cx, cy + 32), (cx - 30, cy + 14), (cx - 30, cy - 12)),
+                  outline=(*accent, 255), width=lw3)
+        d.line(pt((cx, cy - 30), (cx, cy + 0)), fill=(*GHOST, 200), width=lw2)
+        d.line(pt((cx - 30, cy - 12), (cx, cy + 0)), fill=(*GHOST, 200), width=lw2)
+        d.line(pt((cx + 30, cy - 12), (cx, cy + 0)), fill=(*GHOST, 200), width=lw2)
     elif motif == "shield":
-        d.polygon([(cx, cy - 36), (cx + 30, cy - 22), (cx + 30, cy + 6), (cx, cy + 36), (cx - 30, cy + 6), (cx - 30, cy - 22)], outline=(*accent, 255), width=3)
-        d.line([(cx - 12, cy + 0), (cx - 2, cy + 12)], fill=(*GHOST, 230), width=3)
-        d.line([(cx - 2, cy + 12), (cx + 16, cy - 12)], fill=(*GHOST, 230), width=3)
+        d.polygon(pt((cx, cy - 36), (cx + 30, cy - 22), (cx + 30, cy + 6),
+                     (cx, cy + 36), (cx - 30, cy + 6), (cx - 30, cy - 22)),
+                  outline=(*accent, 255), width=lw3)
+        d.line(pt((cx - 12, cy + 0), (cx - 2, cy + 12)), fill=(*GHOST, 230), width=lw3)
+        d.line(pt((cx - 2, cy + 12), (cx + 16, cy - 12)), fill=(*GHOST, 230), width=lw3)
     elif motif == "book":
-        d.rectangle([cx - 30, cy - 30, cx + 30, cy + 30], outline=(*accent, 255), width=3)
-        d.line([(cx, cy - 30), (cx, cy + 30)], fill=(*accent, 255), width=2)
-        for k in range(4):
-            yy = cy - 18 + k * 12
-            d.line([(cx - 22, yy), (cx - 6, yy)], fill=(*GHOST, 200), width=2)
-            d.line([(cx + 6, yy), (cx + 22, yy)], fill=(*GHOST, 200), width=2)
+        d.rectangle(rbox(-30, -30, 30, 30), outline=(*accent, 255), width=lw3)
+        d.line(pt((cx, cy - 30), (cx, cy + 30)), fill=(*accent, 255), width=lw2)
+        for i in range(4):
+            yy = cy - 18 + i * 12
+            d.line(pt((cx - 22, yy), (cx - 6, yy)), fill=(*GHOST, 200), width=lw2)
+            d.line(pt((cx + 6, yy), (cx + 22, yy)), fill=(*GHOST, 200), width=lw2)
 
     # bottom label bar
-    d.rectangle([0, h - 42, w, h], fill=(*VOID, 235))
-    d.line([(0, h - 42), (w, h - 42)], fill=(*accent, 255), width=3)
-    ft = font("display_xb", 22)
-    fl = font("mono", 14)
-    d.text((12, h - 34), title, font=ft, fill=GHOST)
-    lw, _ = text_size(d, lang, fl)
-    d.text((w - lw - 12, h - 28), lang, font=fl, fill=accent)
-    img = add_noise(img, 4, seed=abs(hash(slug)) % 1000)
+    d.rectangle([0, S(base_h - 42), w, h], fill=(*VOID, 235))
+    d.line(pt((0, base_h - 42), (base_w, base_h - 42)), fill=(*accent, 255), width=lw3)
+    ft = font("display_xb", S(22))
+    fl = font("mono", S(14))
+    d.text((S(12), S(base_h - 34)), title, font=ft, fill=GHOST)
+    lw = fl.getlength(lang)
+    d.text((w - lw - S(12), S(base_h - 28)), lang, font=fl, fill=accent)
+
     img.convert("RGB").save(ensure("projects", f"thumb-{slug}.png"), optimize=True)
     return f"thumb-{slug}"
 

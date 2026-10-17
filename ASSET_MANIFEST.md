@@ -45,7 +45,7 @@ Fonts: **Noto Sans Display Condensed/ExtraCondensed Black** (display),
 | Tech panel 02 | `assets/tech/tech-panel-02.png` | PNG | 380×300 | code | — |
 | Tech panel 03 | `assets/tech/tech-panel-03.png` | PNG | 380×300 | code | — |
 | Tech panel 04 | `assets/tech/tech-panel-04.png` | PNG | 380×300 | code | — |
-| Project thumb ×7 | `assets/projects/thumb-<slug>.png` | PNG | 320×180 | code | — |
+| Project thumb ×7 | `assets/projects/thumb-<slug>.png` | PNG | 640×360 | code / real src | — |
 | Activity (animated) | `assets/activity/contrib-3d.gif` | GIF | 1000×420, 26f | code → replace with AI | `contrib-3d-static.png` |
 | Activity (static) | `assets/activity/contrib-3d-static.png` | PNG | 1000×420 | code | — |
 | Footer (animated) | `assets/footer/footer.gif` | GIF | 1280×180, 18f | code → replace with AI | `footer-static.png` |
@@ -54,13 +54,19 @@ Fonts: **Noto Sans Display Condensed/ExtraCondensed Black** (display),
 Project slugs: `ufosay`, `face-unlock`, `apnadabba`, `db-manager`, `render`,
 `anti_theft`, `library-management`.
 
+Real project images: drop screenshots at `assets/projects/src/<slug>.{png,jpg,jpeg,webp}`.
+On the next `python3 scripts/gen_assets.py` run each is letterboxed (contain, no
+crop) onto the canonical 640×360 canvas and written to `thumb-<slug>.png`.
+Slugs with no source file fall back to the generated placeholder. This keeps
+real art from being overwritten by a rerun.
+
 ---
 
 ## File-size budget
 | Target | Limit | Current worst |
 |--------|-------|---------------|
 | Animated GIF | ≤ 2 MB | hero.gif ≈ 0.6 MB |
-| Static PNG | ≤ 300 KB | project thumb ≈ 0.09 MB |
+| Static PNG | ≤ 300 KB | project thumb ≈ 0.07 MB |
 
 Total `assets/` payload: ≈ 2.9 MB (keep under 3 MB − activity GIF is the largest).
 
