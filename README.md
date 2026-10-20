@@ -38,13 +38,34 @@
 
 <!-- Real, clickable project links (the terminal above is a rendered image) -->
 <p>
-  <a href="https://github.com/mohit31kumar/ufosay"><img src="https://img.shields.io/badge/UFOSAY-PYTHON-FF2E88?style=flat-square&labelColor=0B0B12&logoColor=0B0B12" alt="ufosay"></a>
-  <a href="https://github.com/mohit31kumar/face-unlock"><img src="https://img.shields.io/badge/FACE--UNLOCK-PYTHON-00E5FF?style=flat-square&labelColor=0B0B12" alt="face-unlock"></a>
-  <a href="https://github.com/mohit31kumar/ApnaDabba"><img src="https://img.shields.io/badge/APNADABBA-TYPESCRIPT-B6FF00?style=flat-square&labelColor=0B0B12" alt="ApnaDabba"></a>
-  <a href="https://github.com/mohit31kumar/DB-MANAGER"><img src="https://img.shields.io/badge/DB--MANAGER-EJS-A855F7?style=flat-square&labelColor=0B0B12" alt="DB-MANAGER"></a>
-  <a href="https://github.com/mohit31kumar/render"><img src="https://img.shields.io/badge/RENDER-TYPESCRIPT-FF6B35?style=flat-square&labelColor=0B0B12" alt="render"></a>
-  <a href="https://github.com/mohit31kumar/anti_theft"><img src="https://img.shields.io/badge/ANTI__THEFT-HTML-FFE45E?style=flat-square&labelColor=0B0B12" alt="anti_theft"></a>
-  <a href="https://github.com/mohit31kumar/library-management"><img src="https://img.shields.io/badge/LIBRARY--MGMT-PYTHON-FF2E88?style=flat-square&labelColor=0B0B12" alt="library-management"></a>
+  <a href="https://ufosay.vercel.app">
+  <img src="https://img.shields.io/badge/UFOSAY-PYTHON-FF2E88?style=flat-square&labelColor=0B0B12&logoColor=0B0B12" alt="ufosay">
+  </a>
+
+  <a href="https://mohit31kumar.github.io/face-unlock">
+  <img src="https://img.shields.io/badge/FACE--UNLOCK-PYTHON-00E5FF?style=flat-square&labelColor=0B0B12" alt="face-unlock">
+  </a>
+
+  <a href="https://apna-dabba-kappa.vercel.app">
+  <img src="https://img.shields.io/badge/APNADABBA-TYPESCRIPT-B6FF00?style=flat-square&labelColor=0B0B12" alt="ApnaDabba">
+  </a>
+
+  <a href="https://db-manager-4n4m.onrender.com">
+  <img src="https://img.shields.io/badge/DB--MANAGER-EJS-A855F7?style=flat-square&labelColor=0B0B12" alt="DB-MANAGER">
+  </a>
+
+  <a href="https://render-web-4f5v.onrender.com">
+  <img src="https://img.shields.io/badge/RENDER-TYPESCRIPT-FF6B35?style=flat-square&labelColor=0B0B12" alt="render">
+  </a>
+
+  <a href="https://github.com/mohit31kumar/anti_theft">
+  <img src="https://img.shields.io/badge/ANTI__THEFT-HTML-FFE45E?style=flat-square&labelColor=0B0B12" alt="anti_theft">
+  </a>
+
+  <a href="https://github.com/mohit31kumar/library-management">
+  <img src="https://img.shields.io/badge/LIBRARY--MGMT-PYTHON-FF2E88?style=flat-square&labelColor=0B0B12" alt="library-management">
+  </a>
+  
 </p>
 
 <sub><samp>static render &nbsp;//&nbsp; links above are live</samp></sub>
@@ -114,38 +135,42 @@
 <table align="center" width="100%">
 <tr>
 <td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar/ufosay"><img src="assets/projects/thumb-ufosay.png" width="100%" alt="ufosay thumbnail"></a>
+  <a href="https://ufosay.vercel.app"><img src="assets/projects/thumb-ufosay.png" width="100%" alt="ufosay"></a>
   <br><b><samp>UFOSAY</samp></b><br>
   <sub>A flying saucer terminal animation tool.</sub><br>
   <sub><a href="https://github.com/mohit31kumar/ufosay">REPO</a> · <a href="https://ufosay.vercel.app">LIVE</a></sub>
 </td>
 <td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar/face-unlock"><img src="assets/projects/thumb-face-unlock.png" width="100%" alt="face-unlock thumbnail"></a>
+  <a href="https://mohit31kumar.github.io/face-unlock"><img src="assets/projects/thumb-face-unlock.png" width="100%" alt="face-unlock"></a>
   <br><b><samp>FACE-UNLOCK</samp></b><br>
   <sub>PAM-based facial authentication for Linux.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/face-unlock">REPO</a></sub>
+  <sub><a href="https://github.com/mohit31kumar/face-unlock">REPO</a> · <a href="https://mohit31kumar.github.io/face-unlock">LIVE</a></sub>
 </td>
 </tr>
 <tr>
 <td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar/ApnaDabba"><img src="assets/projects/thumb-apnadabba.png" width="100%" alt="ApnaDabba thumbnail"></a>
+  <a href="https://apna-dabba-kappa.vercel.app"><img src="assets/projects/thumb-apnadabba.png" width="100%" alt="ApnaDabba"></a>
   <br><b><samp>APNADABBA</samp></b><br>
   <sub>Full-stack delivery application.</sub><br>
   <sub><a href="https://github.com/mohit31kumar/ApnaDabba">REPO</a> · <a href="https://apna-dabba-kappa.vercel.app">LIVE</a></sub>
 </td>
+
+
 <td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar/DB-MANAGER"><img src="assets/projects/thumb-db-manager.png" width="100%" alt="DB-MANAGER thumbnail"></a>
+  <a href="https://db-manager-4n4m.onrender.com"><img src="assets/projects/thumb-db-manager.png" width="100%" alt="DB-MANAGER thumbnail"></a>
   <br><b><samp>DB-MANAGER</samp></b><br>
   <sub>Database management interface.</sub><br>
   <sub><a href="https://github.com/mohit31kumar/DB-MANAGER">REPO</a> · <a href="https://db-manager-4n4m.onrender.com">LIVE</a></sub>
 </td>
+
+
 </tr>
 <tr>
 <td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar/render"><img src="assets/projects/thumb-render.png" width="100%" alt="render thumbnail"></a>
+  <a href="https://render-web-4f5v.onrender.com"><img src="assets/projects/thumb-render.png" width="100%" alt="render thumbnail"></a>
   <br><b><samp>RENDER</samp></b><br>
   <sub>Rendering engine experiments.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/render">REPO</a></sub>
+  <sub><a href="https://github.com/mohit31kumar/render">REPO</a> · <a href="https://render-web-4f5v.onrender.com">LIVE</a></sub>
 </td>
 <td align="center" width="50%" valign="top">
   <a href="https://github.com/mohit31kumar/anti_theft"><img src="assets/projects/thumb-anti_theft.png" width="100%" alt="anti_theft thumbnail"></a>
