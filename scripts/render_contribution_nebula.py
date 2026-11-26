@@ -211,7 +211,7 @@ def draw_frame(particles, frame_index, is_real, total):
     scan = gen_assets.scanlines((W, H), 4, 18)
     base.alpha_composite(scan)
     d = ImageDraw.Draw(base)
-    scan_y = 82 + int((frame_index / FRAMES) * (H - 130))
+    scan_y = 220 + int(125 * math.sin(rotation))
     d.line((20, scan_y, W - 20, scan_y), fill=(0, 229, 255, 34), width=1)
     return base.convert("RGB")
 
