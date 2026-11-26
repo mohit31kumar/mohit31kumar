@@ -9,6 +9,14 @@ python3 scripts/gen_assets.py
 
 Requires: `python3`, `Pillow`, `numpy`.
 
+Live activity is refreshed by `.github/workflows/update-profile-activity.yml` daily
+and on manual dispatch. `scripts/update_profile_metrics.py` fetches the last 365 days
+of contribution data and repository language/stat data; `scripts/render_contribution_city.py`
+regenerates only the contribution-city GIF/PNG so other artwork is never overwritten.
+The workflow uses the built-in `GITHUB_TOKEN` for public data. Add an optional repository
+Actions secret named `PROFILE_TOKEN` with `read:user` scope to include private/internal
+contribution counts when your GitHub profile is configured to show them.
+
 ---
 
 ## Design tokens (shared by all assets)
@@ -47,7 +55,10 @@ Fonts: **Noto Sans Display Condensed/ExtraCondensed Black** (display),
 | Tech panel 04 | `assets/tech/tech-panel-04.png` | PNG | 380×300 | code | — |
 | Project thumb ×7 | `assets/projects/thumb-<slug>.png` | PNG | 640×360 | code / real src | — |
 | Activity (animated) | `assets/activity/contrib-3d.gif` | GIF | 1000×420, 26f | code → replace with AI | `contrib-3d-static.png` |
-| Activity (static) | `assets/activity/contrib-3d-static.png` | PNG | 1000×420 | code | — |
+| Activity (static) | `assets/activity/contrib-3d-static.png` | PNG | 1000×420 | live contribution data + code | — |
+| GitHub stats | `assets/activity/github-stats.svg` | SVG | 900×230 | GitHub API | — |
+| Top languages | `assets/activity/top-languages.svg` | SVG | 900×230 | GitHub repository language API | — |
+| Contribution source | `assets/activity/contributions.json` | JSON | 53×7 levels | GitHub GraphQL API | — |
 | Footer (animated) | `assets/footer/footer.gif` | GIF | 1280×180, 18f | code → replace with AI | `footer-static.png` |
 | Footer (static) | `assets/footer/footer-static.png` | PNG | 1280×180 | code | — |
 
@@ -76,7 +87,7 @@ Total `assets/` payload: ≈ 2.9 MB (keep under 3 MB − activity GIF is the lar
 | Service | Purpose | URL pattern |
 |---------|---------|-------------|
 | Shields.io | tech badges | `https://img.shields.io/badge/...` |
-| github-readme-stats | stats + top-langs | `https://github-readme-stats.vercel.app/api?...` |
+| Local GitHub API cards | stats + top-langs | `assets/activity/github-stats.svg`, `assets/activity/top-languages.svg` |
 
 Widgets are rendered by GitHub's camo proxy; if a service is down the README
 still shows alt text + the static fallbacks.
