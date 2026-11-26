@@ -101,16 +101,16 @@ confirm these.** Repo link base: `https://github.com/mohit31kumar/<repo>`.
 
 ## 6. ACTIVITY FIELD  [VERIFIED WIDGETS]
 - Contribution-city GIF: `assets/activity/contrib-3d.gif`
-  → currently uses an **illustrative generated field** unless you drop
-  `assets/activity/contributions.json` here with your real data:
+  → now regenerated daily from your real GitHub contribution calendar by GitHub Actions.
+  The workflow writes `assets/activity/contributions.json` before rendering the GIF.
   ```json
   {"weeks": [[0,1,2,...7 values/row Sun..Sat], ...]}
   ```
   When present, one skyline building is drawn per non-zero contribution day
   and the frame labels it "GITHUB CONTRIBUTIONS • SOURCE: CONTRIBUTIONS.JSON".
-- Live stats widgets (measure real data):
-  - `github-readme-stats.vercel.app` — stars/commits/PRs/issues (self-reported by service)
-  - `github-readme-stats.vercel.app/api/top-langs` — most-used languages by bytes
+- Locally generated SVG cards (refreshed daily from GitHub API data):
+  - `assets/activity/github-stats.svg` — contribution total, public repositories, stars, and forks.
+  - `assets/activity/top-languages.svg` — top six languages by bytes across your non-fork, non-archived public repositories.
 - Static fallbacks: `contrib-3d-static.png` + plain-text stat note in README.
 
 ---
