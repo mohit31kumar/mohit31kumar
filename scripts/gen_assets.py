@@ -964,14 +964,14 @@ def _draw_activity_field(img, levels, progress=1.0, is_real=False):
         for r in range(rows):
             value = levels[r][c]
             # Skip many low-level cells to form a varied, city-like silhouette.
-            if value <= 0 or rng.random() < 0.18:
+            if value <= 0:
                 continue
             # Screen projection: x advances right; row offsets create depth.
             x = 125 + c * 10.5 + r * 5
             y = 260 + c * 0.7 - r * 7.4
             bw = rng.choice([13, 15, 17, 19])
             depth = bw * 0.52
-            raw_height = 15 + value * 10 + rng.randint(0, 38)
+            raw_height = 12 + value * 18
             bh = max(3, int(raw_height * min(1.0, max(0.0, progress * 1.25 - c / max(1, cols) * .25))))
             if bh <= 2:
                 continue
