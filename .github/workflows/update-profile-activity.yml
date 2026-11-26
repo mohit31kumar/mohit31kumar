@@ -1,6 +1,12 @@
 name: Update GitHub profile activity
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/render_contribution_nebula.py"
+      - "scripts/update_profile_metrics.py"
+      - ".github/workflows/update-profile-activity.yml"
   schedule:
     # 05:30 IST (00:00 UTC) every day
     - cron: "0 0 * * *"
