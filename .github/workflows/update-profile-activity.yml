@@ -35,8 +35,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/update_profile_metrics.py
 
-      - name: Regenerate existing visual assets
-        run: python scripts/gen_assets.py
+      - name: Render contribution city only (preserve other artwork)
+        run: python scripts/render_contribution_city.py
 
       - name: Commit updated generated assets
         run: |
