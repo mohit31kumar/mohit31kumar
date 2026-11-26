@@ -13,6 +13,7 @@ Live activity is refreshed by `.github/workflows/update-profile-activity.yml` da
 and on manual dispatch. `scripts/update_profile_metrics.py` fetches the last 365 days
 of contribution data and repository language/stat data; `scripts/render_contribution_nebula.py`
 regenerates only the 3D Contribution Nebula GIF/PNG so other artwork is never overwritten.
+Run the nebula renderer directly with `python3 scripts/render_contribution_nebula.py`.
 The workflow uses the built-in `GITHUB_TOKEN` for public data. Add an optional repository
 Actions secret named `PROFILE_TOKEN` with `read:user` scope to include private/internal
 contribution counts when your GitHub profile is configured to show them.
@@ -95,6 +96,6 @@ still shows alt text + the static fallbacks.
 ---
 
 ## AI-generated targets
-See `prompt.txt` for the three assets we recommend replacing with AI renders
-(hero.gif, footer.gif, contrib-3d.gif). Code stand-ins already sit at those exact
-paths, so the README never breaks.
+See `prompt.txt` for optional AI-rendered hero and footer artwork. The Contribution
+Nebula is generated from real contribution data by `scripts/render_contribution_nebula.py`;
+it is no longer an AI-image placeholder.
