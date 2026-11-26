@@ -11,8 +11,8 @@ Requires: `python3`, `Pillow`, `numpy`.
 
 Live activity is refreshed by `.github/workflows/update-profile-activity.yml` daily
 and on manual dispatch. `scripts/update_profile_metrics.py` fetches the last 365 days
-of contribution data and repository language/stat data; `scripts/render_contribution_city.py`
-regenerates only the contribution-city GIF/PNG so other artwork is never overwritten.
+of contribution data and repository language/stat data; `scripts/render_contribution_nebula.py`
+regenerates only the 3D Contribution Nebula GIF/PNG so other artwork is never overwritten.
 The workflow uses the built-in `GITHUB_TOKEN` for public data. Add an optional repository
 Actions secret named `PROFILE_TOKEN` with `read:user` scope to include private/internal
 contribution counts when your GitHub profile is configured to show them.
@@ -54,8 +54,8 @@ Fonts: **Noto Sans Display Condensed/ExtraCondensed Black** (display),
 | Tech panel 03 | `assets/tech/tech-panel-03.png` | PNG | 380×300 | code | — |
 | Tech panel 04 | `assets/tech/tech-panel-04.png` | PNG | 380×300 | code | — |
 | Project thumb ×7 | `assets/projects/thumb-<slug>.png` | PNG | 640×360 | code / real src | — |
-| Activity (animated) | `assets/activity/contrib-3d.gif` | GIF | 1000×420, 26f | code → replace with AI | `contrib-3d-static.png` |
-| Activity (static) | `assets/activity/contrib-3d-static.png` | PNG | 1000×420 | live contribution data + code | — |
+| Contribution Nebula (animated) | `assets/activity/contrib-3d.gif` | GIF | 1000×420, 24f | contribution data + 3D particle renderer | `contrib-3d-static.png` |
+| Contribution Nebula (static) | `assets/activity/contrib-3d-static.png` | PNG | 1000×420 | live contribution data + 3D particle renderer | — |
 | GitHub stats | `assets/activity/github-stats.svg` | SVG | 900×230 | GitHub API | — |
 | Top languages | `assets/activity/top-languages.svg` | SVG | 900×230 | GitHub repository language API | — |
 | Contribution source | `assets/activity/contributions.json` | JSON | 53×7 levels | GitHub GraphQL API | — |
@@ -79,7 +79,7 @@ real art from being overwritten by a rerun.
 | Animated GIF | ≤ 2 MB | hero.gif ≈ 0.6 MB |
 | Static PNG | ≤ 300 KB | project thumb ≈ 0.07 MB |
 
-Total `assets/` payload: ≈ 2.9 MB (keep under 3 MB − activity GIF is the largest).
+Total `assets/` payload: keep under 3 MB; the animated Contribution Nebula is one of the largest assets.
 
 ---
 
