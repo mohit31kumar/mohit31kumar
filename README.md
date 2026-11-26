@@ -203,15 +203,15 @@
 <img src="assets/activity/contrib-3d.gif" width="90%" alt="Contribution city (one building per active day)">
 
 <br>
-<sub><samp>contribution city is illustrative &nbsp;//&nbsp; live metrics below</samp></sub>
+<sub><samp>LIVE CONTRIBUTION DATA &nbsp;//&nbsp; REFRESHED DAILY</samp></sub>
 
 <br><br>
 
-<img width="90%" src="https://github-readme-stats.vercel.app/api?username=mohit31kumar&show_icons=true&hide_border=true&bg_color=0B0B12&title_color=FF2E88&text_color=B6FF00&icon_color=00E5FF&rank_icon=github" alt="GitHub stats for mohit31kumar">
+<img width="90%" src="assets/activity/github-stats.svg" alt="Automatically updated GitHub profile statistics">
 
 <br>
 
-<img width="90%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=mohit31kumar&layout=compact&hide_border=true&bg_color=0B0B12&title_color=FF2E88&text_color=B6FF00&langs_count=6" alt="Most used languages by mohit31kumar">
+<img width="90%" src="assets/activity/top-languages.svg" alt="Automatically updated top programming languages">
 
 </div>
 
