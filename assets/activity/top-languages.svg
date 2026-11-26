@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="230" viewBox="0 0 900 230" role="img" aria-label="Top languages awaiting first refresh">
+<rect width="900" height="230" rx="14" fill="#0B0B12"/><rect x="1" y="1" width="898" height="228" rx="13" fill="none" stroke="#252536"/>
+<text x="28" y="42" fill="#FF2E88" font-family="monospace" font-size="19" font-weight="700">LANGUAGE MATRIX // TOP 6</text><path d="M28 58 H872" stroke="#00E5FF" opacity=".65"/>
+<text x="28" y="125" fill="#B6FF00" font-family="monospace" font-size="18">AWAITING FIRST REPOSITORY SCAN</text>
+<text x="28" y="158" fill="#9292A8" font-family="monospace" font-size="13">Language percentages are calculated from GitHub repository byte counts.</text>
+</svg>
