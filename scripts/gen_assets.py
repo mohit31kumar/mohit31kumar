@@ -1072,8 +1072,6 @@ def main():
     done.append(hero_animated())
     done.append(footer_static())
     done.append(footer_animated())
-    done.append(contrib_static())
-    done.append(contrib_animated())
     print(f"generated {len(done)} assets:")
     for d in done:
         print("  -", d)
