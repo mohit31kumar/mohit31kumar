@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 USERNAME = "mohit31kumar"
-TOKEN = os.environ.get("GITHUB_TOKEN")
+TOKEN = os.environ.get("PROFILE_TOKEN") or os.environ.get("GITHUB_TOKEN")
 API = "https://api.github.com"
 GRAPHQL = "https://api.github.com/graphql"
 
