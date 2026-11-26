@@ -1,0 +1,51 @@
+name: Update GitHub profile activity
+
+on:
+  schedule:
+    # 05:30 IST (00:00 UTC) every day
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-activity-update
+  cancel-in-progress: false
+
+jobs:
+  update-profile-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out profile repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install generator dependencies
+        run: python -m pip install --upgrade pip pillow numpy
+
+      - name: Fetch contribution data and render live cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/update_profile_metrics.py
+
+      - name: Regenerate existing visual assets
+        run: python scripts/gen_assets.py
+
+      - name: Commit updated generated assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/activity/contributions.json assets/activity/contrib-3d.gif assets/activity/contrib-3d-static.png assets/activity/github-stats.svg assets/activity/top-languages.svg
+          if git diff --cached --quiet; then
+            echo "No profile asset changes to commit."
+          else
+            git commit -m "chore: refresh GitHub profile activity"
+            git push
+          fi
