@@ -200,10 +200,10 @@
 <!-- ============================ 06 // ACTIVITY FIELD ============================ -->
 <div align="center">
 
-<img src="assets/activity/contrib-3d.gif" width="90%" alt="Contribution city (one building per active day)">
+<img src="assets/activity/contrib-3d.gif" width="90%" alt="Animated 3D Contribution Nebula driven by GitHub activity">
 
 <br>
-<sub><samp>LIVE CONTRIBUTION DATA &nbsp;//&nbsp; REFRESHED DAILY</samp></sub>
+<sub><samp>CONTRIBUTION NEBULA &nbsp;//&nbsp; 3D ACTIVITY FIELD &nbsp;//&nbsp; REFRESHED DAILY</samp></sub>
 
 <br><br>
 
