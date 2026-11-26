@@ -100,9 +100,9 @@ confirm these.** Repo link base: `https://github.com/mohit31kumar/<repo>`.
 ---
 
 ## 6. ACTIVITY FIELD  [VERIFIED WIDGETS]
-- Contribution-city GIF: `assets/activity/contrib-3d.gif`
-  → now regenerated daily from your real GitHub contribution calendar by GitHub Actions.
-  The workflow writes `assets/activity/contributions.json` before rendering the GIF.
+- Contribution Nebula GIF: `assets/activity/contrib-3d.gif`
+  → a rotating 3D particle galaxy regenerated daily from your real GitHub contribution calendar by GitHub Actions. Contribution intensity drives particle clusters, density, and brightness.
+  The workflow writes `assets/activity/contributions.json` before rendering the GIF with `scripts/render_contribution_nebula.py`.
   ```json
   {"weeks": [[0,1,2,...7 values/row Sun..Sat], ...]}
   ```
