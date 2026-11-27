@@ -202,7 +202,7 @@ def main():
     }
     data_dir = ROOT / "data"
     data_dir.mkdir(parents=True, exist_ok=True)
-    (data_dir / "profile.json").write_text(json.dumps(profile, indent=2) + "\\n", encoding="utf-8")
+    (data_dir / "profile.json").write_text(json.dumps(profile, indent=2) + "\n", encoding="utf-8")
     print(f"Updated contribution history ({contributions} contributions), stats card, top languages, and MOHIT.OS telemetry.")
 
 
