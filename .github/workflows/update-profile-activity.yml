@@ -53,5 +53,21 @@ jobs:
             echo "No profile asset changes to commit."
           else
             git commit -m "chore: refresh GitHub profile activity"
-            git push
+
+            # Rebase generated changes on the latest main before pushing.
+            # Retry in case another commit lands between fetch and push.
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main
+
+              if git push origin HEAD:main; then
+                echo "Successfully pushed profile activity updates."
+                exit 0
+              fi
+
+              echo "Push attempt $attempt failed; retrying with the latest main."
+            done
+
+            echo "Unable to push after 3 attempts."
+            exit 1
           fi
