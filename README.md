@@ -63,7 +63,7 @@ Technology inventory grouped by engineering area. No arbitrary skill percentages
 
 The Living Machine translates the GitHub contribution calendar into a stylized 3D neural network. Node activation and signal intensity follow contribution levels; the network is a visual interpretation, not a diagram of GitHub's internal systems.
 
-[View the static neural render](assets/living-machine/neural-network-static.png)
+[View the static neural render](assets/living-machine/neural-network-static.svg)
 
 ## 05 / SYSTEM TELEMETRY
 
