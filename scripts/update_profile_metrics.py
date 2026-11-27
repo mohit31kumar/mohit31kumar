@@ -178,14 +178,32 @@ def render_languages(repos):
             )
     path = ROOT / "assets" / "activity" / "top-languages.svg"
     path.write_text(svg_card("LANGUAGE MATRIX // TOP 6", body="\n".join(body)), encoding="utf-8")
+    return [
+        {"name": language, "percent": round(amount / total_bytes * 100, 1)}
+        for language, amount in ranked
+    ] if total_bytes else []
 
 
 def main():
     contributions = fetch_contributions()
     repositories = fetch_repositories()
     render_stats(repositories, contributions)
-    render_languages(repositories)
-    print(f"Updated contribution history ({contributions} contributions), stats card, and top languages card.")
+    languages = render_languages(repositories)
+    activity = json.loads((ROOT / "assets" / "activity" / "contributions.json").read_text(encoding="utf-8"))
+    levels = [value for week in activity.get("weeks", []) for value in week]
+    profile = {
+        "total_contributions": contributions,
+        "active_days": sum(1 for value in levels if value > 0),
+        "public_repositories": len(repositories),
+        "stars": sum(int(repo.get("stargazers_count", 0)) for repo in repositories),
+        "forks": sum(int(repo.get("forks_count", 0)) for repo in repositories),
+        "top_languages": languages,
+        "updated_at": activity.get("updated_at"),
+    }
+    data_dir = ROOT / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "profile.json").write_text(json.dumps(profile, indent=2) + "\\n", encoding="utf-8")
+    print(f"Updated contribution history ({contributions} contributions), stats card, top languages, and MOHIT.OS telemetry.")
 
 
 if __name__ == "__main__":

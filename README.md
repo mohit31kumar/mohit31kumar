@@ -1,237 +1,99 @@
-<!-- =====================================================================
-     mohit31kumar // EXPERIMENTAL BRUTALISM x HACKER TERMINAL
-     Visual system: void black canvas, chaotic neon accents, hard-edged
-     panels, scanlines, glitch. All personal copy is a placeholder to
-     approve/edit — see EDITABLE_CONTENT.md. Assets: see ASSET_MANIFEST.md.
-     ===================================================================== -->
-
 <div align="center">
 
-<!-- ============================ 01 // HERO TRANSMISSION ============================ -->
-<a href="https://github.com/mohit31kumar">
-  <img src="assets/hero/hero.gif" width="100%" alt="Hero banner — MOHIT KUMAR — terminal dweller — cybersec">
-</a>
+<img src="assets/boot/boot-sequence.gif" width="100%" alt="MOHIT.OS wide terminal boot sequence">
+
+<samp>PERSONAL DEVELOPER OPERATING SYSTEM / BUILD 01.0</samp>
+
+# MOHIT.OS
+
+`// A digital workspace for software, systems and experiments //`
+
+[GitHub Profile](https://github.com/mohit31kumar) · [All Repositories](https://github.com/mohit31kumar?tab=repositories)
 
 </div>
 
-<img src="assets/separators/header-02.png" width="100%" alt="02 // Signal fragment">
+---
 
-<!-- ============================ 02 // SIGNAL FRAGMENT ============================ -->
-<blockquote>
-  <samp>Building tools that live in the command line. Cybersecurity, systems, and the occasional flying saucer.</samp>
-</blockquote>
+## 00 / SYSTEM BOOT
+
+BIOS INITIALIZED · KERNEL LOADED · OPERATOR IDENTIFIED
+
+MOHIT.OS is the visual control room for my work: full-stack applications, developer tools, security experiments and software systems.
+
+## 01 / OPERATOR IDENTITY
+
+<div align="center"><img src="assets/identity/biometric-scan.svg" width="100%" alt="Biometric operator identity scan"></div>
+
+I'm **Mohit Kumar**, a software developer focused on building practical applications across frontend interfaces, backend APIs, databases and developer tooling.
+
+<sub>OPERATOR HANDLE: @mohit31kumar · [GITHUB](https://github.com/mohit31kumar)</sub>
+
+## 02 / WORLD ENGINE
+
+A categorized map of public projects. Visual grouping is for navigation; it does not imply that separate projects share code or infrastructure.
+
+<div align="center"><img src="assets/world/project-universe.svg" width="100%" alt="MOHIT.OS project universe map"></div>
+
+### Featured project dossiers
+
+| Project | Purpose | Stack | Access |
+|---|---|---|---|
+| **UFOSAY** | Flying saucer terminal animation tool | Python | [Repository](https://github.com/mohit31kumar/ufosay) · [Live](https://ufosay.vercel.app) |
+| **FACE UNLOCK** | PAM-based facial authentication for Linux | Python | [Repository](https://github.com/mohit31kumar/face-unlock) · [Live](https://mohit31kumar.github.io/face-unlock) |
+| **APNADABBA** | Full-stack tiffin delivery application | TypeScript | [Repository](https://github.com/mohit31kumar/ApnaDabba) · [Live](https://apna-dabba-kappa.vercel.app) |
+| **DB MANAGER** | Database management interface | EJS / JavaScript | [Repository](https://github.com/mohit31kumar/DB-MANAGER) · [Live](https://db-manager-4n4m.onrender.com) |
+| **RENDER** | Rendering engine experiments | TypeScript | [Repository](https://github.com/mohit31kumar/render) · [Live](https://render-web-4f5v.onrender.com) |
+
+## 03 / PLAYER PROFILE
+
+Technology inventory grouped by engineering area. No arbitrary skill percentages, XP or fabricated proficiency ranks.
+
+<div align="center"><img src="assets/profile/skill-matrix.svg" width="100%" alt="Developer technology inventory"></div>
+
+- **Frontend:** React, JavaScript, TypeScript, HTML5, CSS3, Tailwind CSS
+- **Backend:** Node.js, Express.js, REST APIs, JWT and session-based authentication
+- **Data:** MySQL, MongoDB, Sequelize
+- **Workflow:** Git, GitHub, Postman, Linux, Vercel and Render
+
+## 04 / THE LIVING MACHINE
+
+<sub>CONTRIBUTION SIGNAL → NEURAL ACTIVITY FIELD → VISUAL OUTPUT</sub>
+
+<div align="center"><img src="assets/living-machine/neural-network.gif" width="100%" alt="Animated neural network generated from GitHub contribution activity"></div>
+
+The Living Machine translates the GitHub contribution calendar into a stylized 3D neural network. Node activation and signal intensity follow contribution levels; the network is a visual interpretation, not a diagram of GitHub's internal systems.
+
+[View the static neural render](assets/living-machine/neural-network-static.png)
+
+## 05 / SYSTEM TELEMETRY
 
 <div align="center">
-
-<img src="assets/separators/divider-01.gif" width="100%" alt="">
-
+<img src="assets/telemetry/dashboard.svg" width="100%" alt="GitHub public profile telemetry dashboard">
+<img src="assets/telemetry/languages.svg" width="100%" alt="Programming language distribution across public repositories">
 </div>
 
-<img src="assets/separators/header-03.png" width="100%" alt="03 // Terminal">
+<sub>Metrics are sourced from public GitHub profile and repository data. Contribution totals use the rolling calendar returned by GitHub; private activity is not inferred.</sub>
 
-<!-- ============================ 03 // TERMINAL ============================ -->
+## 06 / CLASSIFIED ARCHIVE
+
+- [Library Management](https://github.com/mohit31kumar/library-management)
+- [Seminar App](https://github.com/mohit31kumar/seminar-app)
+- [Anti Theft](https://github.com/mohit31kumar/anti_theft)
+
+[Browse all public repositories](https://github.com/mohit31kumar?tab=repositories)
+
+## 07 / ACHIEVEMENT SYSTEM
+
+<div align="center"><img src="assets/achievements/achievement-board.svg" width="100%" alt="Verified contribution milestones"></div>
+
+Milestones appear only when confirmed by collected GitHub contribution data. No invented ranks, XP, streaks or awards.
+
+## 08 / SYSTEM SHUTDOWN
+
 <div align="center">
+<img src="assets/shutdown/system-shutdown.svg" width="100%" alt="MOHIT.OS system shutdown panel">
 
-<img src="assets/terminal/terminal.gif" width="90%" alt="Simulated terminal session: who are you, ls projects, cat status">
+**[RECONNECT TO OPERATOR / GITHUB](https://github.com/mohit31kumar)**
 
-<br>
-
-<!-- Real, clickable project links (the terminal above is a rendered image) -->
-<p>
-  <a href="https://ufosay.vercel.app">
-  <img src="https://img.shields.io/badge/UFOSAY-PYTHON-FF2E88?style=flat-square&labelColor=0B0B12&logoColor=0B0B12" alt="ufosay">
-  </a>
-
-  <a href="https://mohit31kumar.github.io/face-unlock">
-  <img src="https://img.shields.io/badge/FACE--UNLOCK-PYTHON-00E5FF?style=flat-square&labelColor=0B0B12" alt="face-unlock">
-  </a>
-
-  <a href="https://apna-dabba-kappa.vercel.app">
-  <img src="https://img.shields.io/badge/APNADABBA-TYPESCRIPT-B6FF00?style=flat-square&labelColor=0B0B12" alt="ApnaDabba">
-  </a>
-
-  <a href="https://db-manager-4n4m.onrender.com">
-  <img src="https://img.shields.io/badge/DB--MANAGER-EJS-A855F7?style=flat-square&labelColor=0B0B12" alt="DB-MANAGER">
-  </a>
-
-  <a href="https://render-web-4f5v.onrender.com">
-  <img src="https://img.shields.io/badge/RENDER-TYPESCRIPT-FF6B35?style=flat-square&labelColor=0B0B12" alt="render">
-  </a>
-
-  <a href="https://github.com/mohit31kumar/anti_theft">
-  <img src="https://img.shields.io/badge/ANTI__THEFT-HTML-FFE45E?style=flat-square&labelColor=0B0B12" alt="anti_theft">
-  </a>
-
-  <a href="https://github.com/mohit31kumar/library-management">
-  <img src="https://img.shields.io/badge/LIBRARY--MGMT-PYTHON-FF2E88?style=flat-square&labelColor=0B0B12" alt="library-management">
-  </a>
-  
-</p>
-
-<sub><samp>static render &nbsp;//&nbsp; links above are live</samp></sub>
-
-</div>
-
-<img src="assets/separators/header-04.png" width="100%" alt="04 // Tech matrix">
-
-<!-- ============================ 04 // TECH MATRIX ============================ -->
-<!-- NOTE: panels 02 (frameworks) and 03 (tools) are SUGGESTIONS — confirm before
-     publishing. Languages/domains are verified from repo data. -->
-
-<table align="center" width="100%">
-<tr>
-<td align="center" width="50%" valign="top">
-  <img src="assets/tech/tech-panel-01.png" width="100%" alt="Panel 01 // Languages">
-  <br><br>
-  <a href="https://www.python.org"><img src="https://img.shields.io/badge/Python-B6FF00?style=flat-square&logo=python&logoColor=B6FF00&labelColor=0B0B12" alt="Python"></a>
-  <a href="https://www.typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-00E5FF?style=flat-square&logo=typescript&logoColor=00E5FF&labelColor=0B0B12" alt="TypeScript"></a>
-  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://img.shields.io/badge/JavaScript-FFE45E?style=flat-square&logo=javascript&logoColor=FFE45E&labelColor=0B0B12" alt="JavaScript"></a>
-  <br>
-  <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-00E5FF?style=flat-square&logo=dart&logoColor=00E5FF&labelColor=0B0B12" alt="Dart"></a>
-  <a href="https://developer.mozilla.org/docs/Web/HTML"><img src="https://img.shields.io/badge/HTML5-FF6B35?style=flat-square&logo=html5&logoColor=FF6B35&labelColor=0B0B12" alt="HTML5"></a>
-  <a href="https://sass-lang.com"><img src="https://img.shields.io/badge/SCSS-FF2E88?style=flat-square&logo=sass&logoColor=FF2E88&labelColor=0B0B12" alt="SCSS"></a>
-</td>
-<td align="center" width="50%" valign="top">
-  <img src="assets/tech/tech-panel-02.png" width="100%" alt="Panel 02 // Frameworks">
-  <br><br>
-  <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-B6FF00?style=flat-square&logo=nodedotjs&logoColor=B6FF00&labelColor=0B0B12" alt="Node.js"></a>
-  <a href="https://expressjs.com"><img src="https://img.shields.io/badge/Express-00E5FF?style=flat-square&logo=express&logoColor=00E5FF&labelColor=0B0B12" alt="Express"></a>
-  <a href="https://ejs.co"><img src="https://img.shields.io/badge/EJS-A855F7?style=flat-square&logo=ejs&logoColor=A855F7&labelColor=0B0B12" alt="EJS"></a>
-  <br>
-  <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-00E5FF?style=flat-square&logo=flutter&logoColor=00E5FF&labelColor=0B0B12" alt="Flutter"></a>
-  <a href="https://react.dev"><img src="https://img.shields.io/badge/React-FFE45E?style=flat-square&logo=react&logoColor=FFE45E&labelColor=0B0B12" alt="React"></a>
-</td>
-</tr>
-<tr>
-<td align="center" width="50%" valign="top">
-  <img src="assets/tech/tech-panel-03.png" width="100%" alt="Panel 03 // Tools and infrastructure">
-  <br><br>
-  <a href="https://git-scm.com"><img src="https://img.shields.io/badge/Git-FF2E88?style=flat-square&logo=git&logoColor=FF2E88&labelColor=0B0B12" alt="Git"></a>
-  <a href="https://www.linux.org"><img src="https://img.shields.io/badge/Linux-B6FF00?style=flat-square&logo=linux&logoColor=B6FF00&labelColor=0B0B12" alt="Linux"></a>
-  <a href="https://www.docker.com"><img src="https://img.shields.io/badge/Docker-00E5FF?style=flat-square&logo=docker&logoColor=00E5FF&labelColor=0B0B12" alt="Docker"></a>
-  <br>
-  <a href="https://vercel.com"><img src="https://img.shields.io/badge/Vercel-FF6B35?style=flat-square&logo=vercel&logoColor=FF6B35&labelColor=0B0B12" alt="Vercel"></a>
-  <a href="https://render.com"><img src="https://img.shields.io/badge/Render-A855F7?style=flat-square&logo=render&logoColor=A855F7&labelColor=0B0B12" alt="Render"></a>
-  <a href="https://www.gnu.org/software/bash/"><img src="https://img.shields.io/badge/Bash-FFE45E?style=flat-square&logo=gnubash&logoColor=FFE45E&labelColor=0B0B12" alt="Bash"></a>
-</td>
-<td align="center" width="50%" valign="top">
-  <img src="assets/tech/tech-panel-04.png" width="100%" alt="Panel 04 // Domains">
-  <br><br>
-  <img src="https://img.shields.io/badge/CYBERSECURITY-FF2E88?style=flat-square&labelColor=0B0B12" alt="Cybersecurity">
-  <img src="https://img.shields.io/badge/TERMINAL_TOOLING-B6FF00?style=flat-square&labelColor=0B0B12" alt="Terminal tooling">
-  <br>
-  <img src="https://img.shields.io/badge/WEB_APPS-00E5FF?style=flat-square&labelColor=0B0B12" alt="Web apps">
-  <img src="https://img.shields.io/badge/AUTH_SYSTEMS-A855F7?style=flat-square&labelColor=0B0B12" alt="Auth systems">
-</td>
-</tr>
-</table>
-
-<img src="assets/separators/header-05.png" width="100%" alt="05 // Project dimension">
-
-<!-- ============================ 05 // PROJECT DIMENSION ============================ -->
-<!-- Descriptions marked [draft] are inferred from repo names — edit/confirm.
-     Verify live links before publishing. -->
-
-<table align="center" width="100%">
-<tr>
-<td align="center" width="50%" valign="top">
-  <a href="https://ufosay.vercel.app"><img src="assets/projects/thumb-ufosay.png" width="100%" alt="ufosay"></a>
-  <br><b><samp>UFOSAY</samp></b><br>
-  <sub>A flying saucer terminal animation tool.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/ufosay">REPO</a> · <a href="https://ufosay.vercel.app">LIVE</a></sub>
-</td>
-<td align="center" width="50%" valign="top">
-  <a href="https://mohit31kumar.github.io/face-unlock"><img src="assets/projects/thumb-face-unlock.png" width="100%" alt="face-unlock"></a>
-  <br><b><samp>FACE-UNLOCK</samp></b><br>
-  <sub>PAM-based facial authentication for Linux.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/face-unlock">REPO</a> · <a href="https://mohit31kumar.github.io/face-unlock">LIVE</a></sub>
-</td>
-</tr>
-<tr>
-<td align="center" width="50%" valign="top">
-  <a href="https://apna-dabba-kappa.vercel.app"><img src="assets/projects/thumb-apnadabba.png" width="100%" alt="ApnaDabba"></a>
-  <br><b><samp>APNADABBA</samp></b><br>
-  <sub>Full-stack delivery application.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/ApnaDabba">REPO</a> · <a href="https://apna-dabba-kappa.vercel.app">LIVE</a></sub>
-</td>
-
-
-<td align="center" width="50%" valign="top">
-  <a href="https://db-manager-4n4m.onrender.com"><img src="assets/projects/thumb-db-manager.png" width="100%" alt="DB-MANAGER thumbnail"></a>
-  <br><b><samp>DB-MANAGER</samp></b><br>
-  <sub>Database management interface.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/DB-MANAGER">REPO</a> · <a href="https://db-manager-4n4m.onrender.com">LIVE</a></sub>
-</td>
-
-
-</tr>
-<tr>
-<td align="center" width="50%" valign="top">
-  <a href="https://render-web-4f5v.onrender.com"><img src="assets/projects/thumb-render.png" width="100%" alt="render thumbnail"></a>
-  <br><b><samp>RENDER</samp></b><br>
-  <sub>Rendering engine experiments.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/render">REPO</a> · <a href="https://render-web-4f5v.onrender.com">LIVE</a></sub>
-</td>
-<td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar/anti_theft"><img src="assets/projects/thumb-anti_theft.png" width="100%" alt="anti_theft thumbnail"></a>
-  <br><b><samp>ANTI_THEFT</samp></b><br>
-  <sub>Anti-theft security tool.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/anti_theft">REPO</a></sub>
-</td>
-</tr>
-<tr>
-<td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar/library-management"><img src="assets/projects/thumb-library-management.png" width="100%" alt="library-management thumbnail"></a>
-  <br><b><samp>LIBRARY-MGMT</samp></b><br>
-  <sub>Library management system.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar/library-management">REPO</a></sub>
-</td>
-<td align="center" width="50%" valign="top">
-  <a href="https://github.com/mohit31kumar?tab=repositories"><img src="assets/tech/tech-panel-04.png" width="100%" alt="All repositories panel"></a>
-  <br><b><samp>ARG ?</samp></b><br>
-  <sub>Browse the full archive of repositories.</sub><br>
-  <sub><a href="https://github.com/mohit31kumar?tab=repositories">ALL REPOS</a></sub>
-</td>
-</tr>
-</table>
-
-<img src="assets/separators/header-06.png" width="100%" alt="06 // Activity field">
-
-<!-- ============================ 06 // ACTIVITY FIELD ============================ -->
-<div align="center">
-
-<img src="assets/activity/contrib-3d.gif" width="90%" alt="Animated 3D Contribution Nebula driven by GitHub activity">
-
-<br>
-<sub><samp>CONTRIBUTION NEBULA &nbsp;//&nbsp; 3D ACTIVITY FIELD &nbsp;//&nbsp; REFRESHED DAILY</samp></sub>
-
-<br><br>
-
-<img width="90%" src="assets/activity/github-stats.svg" alt="Automatically updated GitHub profile statistics">
-
-<br>
-
-<img width="90%" src="assets/activity/top-languages.svg" alt="Automatically updated top programming languages">
-
-</div>
-
-<img src="assets/separators/header-end.png" width="100%" alt="End of transmission">
-
-<!-- ============================ CLOSING // END OF TRANSMISSION ============================ -->
-<div align="center">
-
-<img src="assets/footer/footer.gif" width="100%" alt="End of transmission footer">
-
-<br><br>
-
-<!-- PLACEHOLDER SOCIALS — replace or remove before publishing. See EDITABLE_CONTENT.md -->
-<a href="https://github.com/mohit31kumar"><img src="https://img.shields.io/badge/GITHUB-FF2E88?style=for-the-badge&logo=github&logoColor=FF2E88&labelColor=0B0B12" alt="GitHub"></a>
-<a href="https://twitter.com/mohit31kumar"><img src="https://img.shields.io/badge/TWITTER-00E5FF?style=for-the-badge&logo=x&logoColor=00E5FF&labelColor=0B0B12" alt="Twitter (placeholder)"></a>
-<a href="https://linkedin.com/in/mohit31kumar"><img src="https://img.shields.io/badge/LINKEDIN-A855F7?style=for-the-badge&logo=linkedin&logoColor=A855F7&labelColor=0B0B12" alt="LinkedIn (placeholder)"></a>
-<a href="mailto:mohit31kumar@example.com"><img src="https://img.shields.io/badge/EMAIL-FF6B35?style=for-the-badge&logo=minutemailer&logoColor=FF6B35&labelColor=0B0B12" alt="Email (placeholder)"></a>
-
-<br><br>
-
-<sub><samp>// signal lost // mohit31kumar // end of transmission</samp></sub>
-
+<samp>END OF TRANSMISSION // MOHIT.OS</samp>
 </div>

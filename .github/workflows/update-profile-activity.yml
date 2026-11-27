@@ -1,57 +1,98 @@
-name: Update GitHub profile activity
-
+name: MOHIT.OS - Build and refresh profile
 on:
-  push:
+  pull_request:
     branches: [main]
-    paths:
-      - "scripts/render_contribution_nebula.py"
-      - "scripts/update_profile_metrics.py"
-      - ".github/workflows/update-profile-activity.yml"
+    types: [opened, synchronize, reopened]
   schedule:
-    # 05:30 IST (00:00 UTC) every day
     - cron: "0 0 * * *"
   workflow_dispatch:
-
 permissions:
   contents: write
-
+  pull-requests: write
 concurrency:
-  group: profile-activity-update
+  group: mohit-os-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
-
 jobs:
-  update-profile-assets:
+  build-pull-request:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
-      - name: Check out profile repository
+      - name: Check out pull request branch
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: true
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
-      - name: Install renderer dependencies
-        run: python -m pip install --upgrade pip pillow numpy
-
-      - name: Fetch contribution data and render live cards
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Refresh contribution and repository metrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
         run: python scripts/update_profile_metrics.py
-
-      - name: Render 3D Contribution Nebula
-        run: python scripts/render_contribution_nebula.py
-
-      - name: Commit updated generated assets
+      - name: Render and validate MOHIT.OS
+        run: python scripts/mohit_os.py --render --validate
+      - name: Commit generated assets to the PR branch only
+        env:
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/activity/contributions.json assets/activity/contrib-3d.gif assets/activity/contrib-3d-static.png assets/activity/github-stats.svg assets/activity/top-languages.svg
+          git add data/profile.json assets/activity/contributions.json assets/activity/github-stats.svg assets/activity/top-languages.svg assets/boot assets/identity assets/world assets/profile assets/living-machine assets/telemetry assets/achievements assets/shutdown
           if git diff --cached --quiet; then
-            echo "No profile asset changes to commit."
+            echo "Generated assets are already current."
           else
-            git commit -m "chore: refresh GitHub profile activity"
-            git push
+            git commit -m "chore: generate MOHIT.OS profile assets"
+            git push origin "HEAD:$HEAD_BRANCH"
           fi
+  scheduled-refresh:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.ref_name == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out main for scheduled data refresh
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Refresh contribution and repository metrics
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
+        run: python scripts/update_profile_metrics.py
+      - name: Render and validate MOHIT.OS
+        run: python scripts/mohit_os.py --render --validate
+      - name: Open refresh PR instead of pushing to main
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automation/mohit-os-refresh
+          base: main
+          delete-branch: true
+          commit-message: "chore: refresh MOHIT.OS profile data"
+          title: "chore: refresh MOHIT.OS profile data"
+          body: |
+            Automated refresh of public GitHub contribution metrics and generated MOHIT.OS artwork.
+            This PR is opened for review. It never merges itself or pushes generated commits directly to main.
+          add-paths: |
+            data/profile.json
+            assets/activity/contributions.json
+            assets/activity/github-stats.svg
+            assets/activity/top-languages.svg
+            assets/boot/**
+            assets/identity/**
+            assets/world/**
+            assets/profile/**
+            assets/living-machine/**
+            assets/telemetry/**
+            assets/achievements/**
+            assets/shutdown/**

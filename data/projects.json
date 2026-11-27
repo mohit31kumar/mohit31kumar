@@ -1,0 +1,101 @@
+{
+  "projects": [
+    {
+      "slug": "ufosay",
+      "name": "UFOSAY",
+      "category": "tools",
+      "summary": "Flying saucer terminal animation tool",
+      "stack": [
+        "Python"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/ufosay",
+      "live_url": "https://ufosay.vercel.app",
+      "featured": true
+    },
+    {
+      "slug": "db-manager",
+      "name": "DB MANAGER",
+      "category": "tools",
+      "summary": "Database management interface",
+      "stack": [
+        "EJS",
+        "JavaScript"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/DB-MANAGER",
+      "live_url": "https://db-manager-4n4m.onrender.com",
+      "featured": true
+    },
+    {
+      "slug": "apnadabba",
+      "name": "APNADABBA",
+      "category": "applications",
+      "summary": "Full-stack tiffin delivery application",
+      "stack": [
+        "TypeScript"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/ApnaDabba",
+      "live_url": "https://apna-dabba-kappa.vercel.app",
+      "featured": true
+    },
+    {
+      "slug": "render",
+      "name": "RENDER",
+      "category": "applications",
+      "summary": "Rendering engine experiments",
+      "stack": [
+        "TypeScript"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/render",
+      "live_url": "https://render-web-4f5v.onrender.com",
+      "featured": true
+    },
+    {
+      "slug": "face-unlock",
+      "name": "FACE UNLOCK",
+      "category": "security",
+      "summary": "PAM-based facial authentication for Linux",
+      "stack": [
+        "Python"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/face-unlock",
+      "live_url": "https://mohit31kumar.github.io/face-unlock",
+      "featured": true
+    },
+    {
+      "slug": "library-management",
+      "name": "Library Management",
+      "category": "archive",
+      "summary": "Library management system",
+      "stack": [
+        "Python"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/library-management",
+      "live_url": null,
+      "featured": false
+    },
+    {
+      "slug": "seminar-app",
+      "name": "Seminar App",
+      "category": "archive",
+      "summary": "Seminar application",
+      "stack": [
+        "Dart"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/seminar-app",
+      "live_url": null,
+      "featured": false
+    },
+    {
+      "slug": "anti-theft",
+      "name": "Anti Theft",
+      "category": "archive",
+      "summary": "Anti-theft security tool",
+      "stack": [
+        "HTML"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/anti_theft",
+      "live_url": null,
+      "featured": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "groups": [
+    {
+      "name": "Frontend engineering",
+      "items": [
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "HTML5",
+        "CSS3",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "name": "Backend engineering",
+      "items": [
+        "Node.js",
+        "Express.js",
+        "REST APIs",
+        "JWT / Sessions"
+      ]
+    },
+    {
+      "name": "Data systems",
+      "items": [
+        "MySQL",
+        "MongoDB",
+        "Sequelize"
+      ]
+    },
+    {
+      "name": "Developer workflow",
+      "items": [
+        "Git",
+        "GitHub",
+        "Postman",
+        "Linux",
+        "Vercel",
+        "Render"
+      ]
+    }
+  ]
+}
