@@ -1,0 +1,34 @@
+{
+  "total_contributions": 748,
+  "active_days": 131,
+  "public_repositories": 13,
+  "stars": 6,
+  "forks": 1,
+  "top_languages": [
+    {
+      "name": "HTML",
+      "percent": 21.6
+    },
+    {
+      "name": "Dart",
+      "percent": 14.6
+    },
+    {
+      "name": "JavaScript",
+      "percent": 13.1
+    },
+    {
+      "name": "SCSS",
+      "percent": 11.2
+    },
+    {
+      "name": "TypeScript",
+      "percent": 11.0
+    },
+    {
+      "name": "Python",
+      "percent": 7.9
+    }
+  ],
+  "updated_at": "2026-11-27T03:29:53.502236+00:00"
+}
