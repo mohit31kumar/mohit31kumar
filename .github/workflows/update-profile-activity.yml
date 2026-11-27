@@ -2,9 +2,6 @@ name: MOHIT.OS - Build and refresh profile
 on:
   push:
     branches: [feature/mohit-os-redesign]
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, reopened]
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
@@ -16,7 +13,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build-pull-request:
-    if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) || (github.event_name == 'push' && github.ref_name == 'feature/mohit-os-redesign')
+    if: github.event_name == 'push' && github.ref_name == 'feature/mohit-os-redesign'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
