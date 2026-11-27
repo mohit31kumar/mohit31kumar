@@ -13,16 +13,15 @@
       "featured": true
     },
     {
-      "slug": "db-manager",
-      "name": "DB MANAGER",
-      "category": "tools",
-      "summary": "Database management interface",
+      "slug": "face-unlock",
+      "name": "FACE UNLOCK",
+      "category": "security",
+      "summary": "PAM-based facial authentication for Linux",
       "stack": [
-        "EJS",
-        "JavaScript"
+        "Python"
       ],
-      "repo_url": "https://github.com/mohit31kumar/DB-MANAGER",
-      "live_url": "https://db-manager-4n4m.onrender.com",
+      "repo_url": "https://github.com/mohit31kumar/face-unlock",
+      "live_url": "https://mohit31kumar.github.io/face-unlock",
       "featured": true
     },
     {
@@ -35,6 +34,19 @@
       ],
       "repo_url": "https://github.com/mohit31kumar/ApnaDabba",
       "live_url": "https://apna-dabba-kappa.vercel.app",
+      "featured": false
+    },
+    {
+      "slug": "db-manager",
+      "name": "DB MANAGER",
+      "category": "tools",
+      "summary": "Database management interface",
+      "stack": [
+        "EJS",
+        "JavaScript"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/DB-MANAGER",
+      "live_url": "https://db-manager-4n4m.onrender.com",
       "featured": true
     },
     {
@@ -50,50 +62,26 @@
       "featured": true
     },
     {
-      "slug": "face-unlock",
-      "name": "FACE UNLOCK",
-      "category": "security",
-      "summary": "PAM-based facial authentication for Linux",
-      "stack": [
-        "Python"
-      ],
-      "repo_url": "https://github.com/mohit31kumar/face-unlock",
-      "live_url": "https://mohit31kumar.github.io/face-unlock",
-      "featured": true
-    },
-    {
-      "slug": "library-management",
-      "name": "Library Management",
-      "category": "archive",
-      "summary": "Library management system",
-      "stack": [
-        "Python"
-      ],
-      "repo_url": "https://github.com/mohit31kumar/library-management",
-      "live_url": null,
-      "featured": false
-    },
-    {
-      "slug": "seminar-app",
-      "name": "Seminar App",
-      "category": "archive",
-      "summary": "Seminar application",
-      "stack": [
-        "Dart"
-      ],
-      "repo_url": "https://github.com/mohit31kumar/seminar-app",
-      "live_url": null,
-      "featured": false
-    },
-    {
       "slug": "anti-theft",
-      "name": "Anti Theft",
+      "name": "ANTI_THEFT",
       "category": "archive",
       "summary": "Anti-theft security tool",
       "stack": [
         "HTML"
       ],
       "repo_url": "https://github.com/mohit31kumar/anti_theft",
+      "live_url": null,
+      "featured": false
+    },
+    {
+      "slug": "library-management",
+      "name": "LIBRARY-MGMT",
+      "category": "archive",
+      "summary": "Library management system",
+      "stack": [
+        "Python"
+      ],
+      "repo_url": "https://github.com/mohit31kumar/library-management",
       "live_url": null,
       "featured": false
     }
