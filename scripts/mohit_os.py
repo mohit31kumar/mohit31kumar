@@ -67,6 +67,15 @@ def render_neural():
  frames[-1].save(out/"neural-network-static.png",optimize=True)
  q=[im.quantize(colors=32,method=Image.Quantize.MEDIANCUT) for im in frames]
  q[0].save(out/"neural-network.gif",save_all=True,append_images=q[1:],duration=160,loop=0,optimize=True)
+ body='<text x="28" y="42" fill="#FF2E88" font-family="monospace" font-size="16">LIVING MACHINE / STATIC NEURAL MAP</text>'
+ for i,(x,y,z,level) in enumerate(nodes):
+  px=600+x*2.0; py=270+y*2.0
+  for j,(xx,yy,zz,ll) in enumerate(nodes[i+1:i+4],i+1):
+   qx=600+xx*2.0; qy=270+yy*2.0
+   if level+ll>0: body+=f'<line x1="{px:.1f}" y1="{py:.1f}" x2="{qx:.1f}" y2="{qy:.1f}" stroke="#00E5FF" opacity=".38"/>'
+  color=["#373C53","#00E5FF","#A855F7","#FF2E88","#B6FF00"][level]
+  body+=f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{2+level}" fill="{color}"/>'
+ svg("assets/living-machine/neural-network-static.svg",1200,540,body,"Static contribution-driven neural network")
 def render_svgs():
  projects=load("data/projects.json",{"projects":[]}).get("projects",[])
  cats=[("TOOLS / ENGINEERING","tools"),("APPLICATIONS","applications"),("SECURITY","security"),("ARCHIVE","archive")]
@@ -110,7 +119,7 @@ def render_svgs():
  body=t(35,55,"08 / SYSTEM SHUTDOWN",16,"#FF2E88",True)+t(35,130,"END OF TRANSMISSION",38,"#F4F0FF",True)+t(35,175,"MOHIT.OS / OPERATOR SESSION CLOSED",14,"#00E5FF")
  svg("assets/shutdown/system-shutdown.svg",1200,250,body,"MOHIT.OS shutdown")
 def validate():
- required=["assets/boot/boot-sequence.gif","assets/boot/boot-static.png","assets/identity/biometric-scan.svg","assets/world/project-universe.svg","assets/profile/skill-matrix.svg","assets/living-machine/neural-network.gif","assets/living-machine/neural-network-static.png","assets/telemetry/dashboard.svg","assets/telemetry/languages.svg","assets/achievements/achievement-board.svg","assets/shutdown/system-shutdown.svg"]
+ required=["assets/boot/boot-sequence.gif","assets/boot/boot-static.png","assets/identity/biometric-scan.svg","assets/world/project-universe.svg","assets/profile/skill-matrix.svg","assets/living-machine/neural-network.gif","assets/living-machine/neural-network-static.svg","assets/telemetry/dashboard.svg","assets/telemetry/languages.svg","assets/achievements/achievement-board.svg","assets/shutdown/system-shutdown.svg"]
  for rel in required:
   p=ROOT/rel
   if not p.exists() or not p.stat().st_size:raise SystemExit("Missing asset: "+rel)

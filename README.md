@@ -70,6 +70,8 @@ The Living Machine translates the GitHub contribution calendar into a stylized 3
 <div align="center">
 <img src="assets/telemetry/dashboard.svg" width="100%" alt="GitHub public profile telemetry dashboard">
 <img src="assets/telemetry/languages.svg" width="100%" alt="Programming language distribution across public repositories">
+<img src="assets/activity/github-stats.svg" width="100%" alt="Live GitHub repository and contribution statistics">
+<img src="assets/activity/top-languages.svg" width="100%" alt="Live top programming languages across public repositories">
 </div>
 
 <sub>Metrics are sourced from public GitHub profile and repository data. Contribution totals use the rolling calendar returned by GitHub; private activity is not inferred.</sub>
